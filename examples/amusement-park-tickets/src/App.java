@@ -17,7 +17,6 @@ public class App {
 
         Scanner console = new Scanner(System.in);
 
-
         boolean exit = false;
 
         do {
@@ -62,14 +61,17 @@ public class App {
                     }
                 } while (selection < 1 || selection > 4);
 
-                //int age = Integer.parseInt(console.nextLine());
-//            if (age >= 65) {
-//                totalPrice += 1;
-//            } else if (age > 12) {
-//                totalPrice += 10.5;
-//            } else if (age > 2) {
-//                totalPrice += 5;
-//            }
+
+                /* TODO: pick one approach and remove comments
+                int age = Integer.parseInt(console.nextLine());
+                if (age >= 65) {
+                    totalPrice += 1;
+                } else if (age > 12) {
+                    totalPrice += 10.5;
+                } else if (age > 2) {
+                    totalPrice += 5;
+                }
+                 */
             }
 
             String formatString = "%n%s, your total price for this ride is: $%.2f%n";
