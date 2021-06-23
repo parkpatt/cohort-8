@@ -17,47 +17,52 @@ public class App {
 
         Scanner console = new Scanner(System.in);
 
-        System.out.print("What is your name? ");
-        String name = console.nextLine();
 
-        System.out.print("How many people in your group? ");
-        int groupSize = Integer.parseInt(console.nextLine());
+        boolean exit = false;
 
-        double totalPrice = 0;
-        for (int i = 0; i < groupSize; i++) {
+        do {
 
-            int selection;
+            System.out.print("What is your name? ");
+            String name = console.nextLine();
 
-            do {
-                System.out.printf("How old is person %s?%n", i + 1);
-                System.out.println("1. Adult");
-                System.out.println("2. Kid (2-12)");
-                System.out.println("3. Senior (65 or over)");
-                System.out.println("4. Baby");
-                System.out.print("Choose [1-4]: ");
+            System.out.print("How many people in your group? ");
+            int groupSize = Integer.parseInt(console.nextLine());
 
-                selection = Integer.parseInt(console.nextLine());
+            double totalPrice = 0;
+            for (int i = 0; i < groupSize; i++) {
 
-                switch (selection) {
-                    case 1:
-                        totalPrice += 10.5;
-                        break;
-                    case 2:
-                        totalPrice += 5;
-                        break;
-                    case 3:
-                        totalPrice += 1;
-                        break;
-                    case 4:
-                        break;
-                    default:
-                        System.out.printf("%s is not a valid selection.%n", selection);
-                        System.out.println();
-                        break;
-                }
-            } while (selection < 1 || selection > 4);
+                int selection;
 
-            //int age = Integer.parseInt(console.nextLine());
+                do {
+                    System.out.printf("How old is person %s?%n", i + 1);
+                    System.out.println("1. Adult - $10.50");
+                    System.out.println("2. Kid (2-12) - $5.00");
+                    System.out.println("3. Senior (65 or over)");
+                    System.out.println("4. Baby");
+                    System.out.print("Choose [1-4]: ");
+
+                    selection = Integer.parseInt(console.nextLine());
+
+                    switch (selection) {
+                        case 1:
+                            totalPrice += 10.5;
+                            break;
+                        case 2:
+                            totalPrice += 5;
+                            break;
+                        case 3:
+                            totalPrice += 1;
+                            break;
+                        case 4:
+                            break;
+                        default:
+                            System.out.printf("%s is not a valid selection.%n", selection);
+                            System.out.println();
+                            break;
+                    }
+                } while (selection < 1 || selection > 4);
+
+                //int age = Integer.parseInt(console.nextLine());
 //            if (age >= 65) {
 //                totalPrice += 1;
 //            } else if (age > 12) {
@@ -65,10 +70,21 @@ public class App {
 //            } else if (age > 2) {
 //                totalPrice += 5;
 //            }
-        }
+            }
 
-        String formatString = "%n%s, your total price for this ride is: $%.2f%n";
-        System.out.printf(formatString, name, totalPrice);
+            String formatString = "%n%s, your total price for this ride is: $%.2f%n";
+            System.out.printf(formatString, name, totalPrice);
+            System.out.println();
+
+            System.out.print("Would you like to add another group? [y/n]: ");
+            String choice = console.nextLine();
+
+            exit = !choice.equalsIgnoreCase("y");
+
+
+        } while(!exit);
+
+        System.out.println("Goodbye!");
 
     }
 }
