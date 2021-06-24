@@ -43,7 +43,7 @@
 * Group A - Brendan
 * Group B - Josh/Irina
 
-## Week 4
+### Week 4
 
 * Group A - Irina
 * Group B - Brendan
@@ -53,7 +53,7 @@
 * Group A - Brendan
 * Group B - Irina
 
-## Week 6
+### Week 6
 
 * Group A - Irina
 * Group B - Brendan
@@ -63,22 +63,22 @@
 * Group A - Brendan
 * Group B - Irina
 
-## Week 8
+### Week 8
 
 * Group A - Irina
 * Group B - Brendan
 
-## Week 9
+### Week 9
 
 * Group A - Brendan
 * Group B - Irina
 
-## Week 10
+### Week 10
 
 * Group A - Irina
 * Group B - Brendan
 
-## Week 11
+### Week 11
 
 * Group A - Brendan
 * Group B - Irina
