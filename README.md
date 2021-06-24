@@ -30,55 +30,55 @@
 
 ### Week 1
 
-Group A - Brendan
-Group B - Kiel/Josh
+* Group A - Brendan
+* Group B - Kiel/Josh
 
 ### Week 2
 
-Group A - Josh
-Group B - Brendan
+* Group A - Josh
+* Group B - Brendan
 
 ### Week 3
 
-Group A - Brendan
-Group B - Josh/Irina
+* Group A - Brendan
+* Group B - Josh/Irina
 
 ## Week 4
 
-Group A - Irina
-Group B - Brendan
+* Group A - Irina
+* Group B - Brendan
 
 ### Week 5
 
-Group A - Brendan
-Group B - Irina
+* Group A - Brendan
+* Group B - Irina
 
 ## Week 6
 
-Group A - Irina
-Group B - Brendan
+* Group A - Irina
+* Group B - Brendan
 
 ### Week 7
 
-Group A - Brendan
-Group B - Irina
+* Group A - Brendan
+* Group B - Irina
 
 ## Week 8
 
-Group A - Irina
-Group B - Brendan
+* Group A - Irina
+* Group B - Brendan
 
 ## Week 9
 
-Group A - Brendan
-Group B - Irina
+* Group A - Brendan
+* Group B - Irina
 
 ## Week 10
 
-Group A - Irina
-Group B - Brendan
+* Group A - Irina
+* Group B - Brendan
 
 ## Week 11
 
-Group A - Brendan
-Group B - Irina
+* Group A - Brendan
+* Group B - Irina
