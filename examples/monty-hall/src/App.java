@@ -15,7 +15,7 @@ public class App {
                 totalWins++;
             }
             totalGames++;
-            playAgain = readInt(console, "Play again? [1 - Yes, 2 - No]", 1, 2) == 1;
+            playAgain = readBoolean(console, "Play again? [y/n]");
         } while (playAgain);
 
         System.out.printf("Total Cars: %s%n", totalWins);
@@ -30,7 +30,7 @@ public class App {
         int carDoor = random.nextInt(3) + 1;
         int playerDoor = readInt(console, "Pick a Door: 1, 2, or 3...",1, 3);
         int revealedDoor = revealDoor(random, playerDoor, carDoor);
-        playerDoor = getFinalPlayerDoor(console, random, playerDoor, revealedDoor);
+        playerDoor = getFinalPlayerDoor(console, playerDoor, revealedDoor);
 
         printResult(playerDoor == carDoor);
 
@@ -45,15 +45,14 @@ public class App {
         return revealedDoor;
     }
 
-    public static int getFinalPlayerDoor(Scanner console, Random random, int playerDoor, int revealedDoor) {
+    public static int getFinalPlayerDoor(Scanner console, int playerDoor, int revealedDoor) {
         int result = playerDoor;
         System.out.printf("You picked door %s...%n", playerDoor);
         System.out.printf("The announcer has revealed a goat behind door %s%n", revealedDoor);
-        int switchDoor = readInt(console, "Switch? [1 - Yes, 2 - No] ", 1, 2);
+        boolean switchDoor = readBoolean(console, "Switch? [y/n] ");
 
-        if (switchDoor == 1) {
+        if (switchDoor) {
             result = 6 - playerDoor - revealedDoor;
-            // result = revealDoorWithRandomLoop(random, playerDoor, revealedDoor, numberOfDoors);
         }
 
         return result;
@@ -70,14 +69,28 @@ public class App {
     public static int readInt(Scanner console, String prompt, int min, int max) {
         int result;
         do {
-            System.out.println(prompt);
-            result = Integer.parseInt(console.nextLine());
-
+            result = Integer.parseInt(readString(console, prompt));
             if (result < min || result > max) {
                 System.out.printf("Please choose a number between %s and %s.%n", min, max);
             }
 
         } while (result < min || result > max);
         return result;
+    }
+
+    public static boolean readBoolean(Scanner console, String prompt) {
+        String input = null;
+        do {
+            input = readString(console, prompt);
+            if (!input.equalsIgnoreCase("y") && !input.equalsIgnoreCase("n")) {
+                System.out.printf("I don't recognize that option");
+            }
+        } while(!input.equalsIgnoreCase("y") && !input.equalsIgnoreCase("n"));
+        return input.equalsIgnoreCase("y");
+    }
+
+    public static String readString(Scanner console, String prompt) {
+        System.out.println(prompt);
+        return console.nextLine();
     }
 }
