@@ -29,15 +29,16 @@ public class App {
         Random random = new Random();
         int carDoor = random.nextInt(3) + 1;
         int playerDoor = readInt(console, "Pick a Door: 1, 2, or 3...",1, 3);
-        int revealedDoor = revealDoor(random, playerDoor, carDoor);
-        playerDoor = getFinalPlayerDoor(console, playerDoor, revealedDoor);
+        int revealedDoor = revealDoorCalculated(random, playerDoor, carDoor);
+        System.out.printf("You picked door %s...%n", playerDoor);
+        System.out.printf("The announcer has revealed a goat behind door %s%n", revealedDoor);
+        boolean winner = getFinalPlayerDoor(console, playerDoor, revealedDoor) == carDoor;
+        printResult(winner);
 
-        printResult(playerDoor == carDoor);
-
-        return playerDoor == carDoor;
+        return winner;
     }
 
-    public static int revealDoor(Random random, int playerDoor, int carDoor) {
+    public static int revealDoorLoopRandom(Random random, int playerDoor, int carDoor) {
         int revealedDoor;
         do {
             revealedDoor = random.nextInt(3) + 1;
@@ -45,25 +46,34 @@ public class App {
         return revealedDoor;
     }
 
-    public static int getFinalPlayerDoor(Scanner console, int playerDoor, int revealedDoor) {
-        int result = playerDoor;
-        System.out.printf("You picked door %s...%n", playerDoor);
-        System.out.printf("The announcer has revealed a goat behind door %s%n", revealedDoor);
-        boolean switchDoor = readBoolean(console, "Switch? [y/n] ");
-
-        if (switchDoor) {
-            result = 6 - playerDoor - revealedDoor;
+    public static int revealDoorCalculated(Random random, int playerDoor, int carDoor) {
+        int revealedDoor;
+        if (carDoor == playerDoor) {
+            // use zero based door
+            int zeroBasedCarDoor = carDoor - 1;
+            // random offset of 1 or 2
+            int shift = random.nextInt(2) + 1;
+            // get modulo (remainder) of dividing by 3 (0, 1, 2)
+            int zeroBasedRevealedDoor = (zeroBasedCarDoor + shift) % 3;
+            // add 1 back to door
+            revealedDoor = zeroBasedRevealedDoor + 1;
+        } else {
+            revealedDoor = 6 - carDoor - playerDoor;
         }
+        return revealedDoor;
+    }
 
-        return result;
+    public static int getFinalPlayerDoor(Scanner console, int playerDoor, int revealedDoor) {
+        return readBoolean(console, "Switch? [y/n] ")
+                ? 6 - playerDoor - revealedDoor
+                : playerDoor;
     }
 
     public static void printResult(boolean winner) {
-        if (winner) {
-            System.out.println("You won a car!");
-        } else {
-            System.out.println("You got a goat!");
-        }
+        String message = winner
+                ? "You won a car!"
+                : "You got a goat!";
+        System.out.println(message);
     }
 
     public static int readInt(Scanner console, String prompt, int min, int max) {
@@ -73,19 +83,20 @@ public class App {
             if (result < min || result > max) {
                 System.out.printf("Please choose a number between %s and %s.%n", min, max);
             }
-
         } while (result < min || result > max);
         return result;
     }
 
     public static boolean readBoolean(Scanner console, String prompt) {
-        String input = null;
+        String input;
+        boolean isValid;
         do {
             input = readString(console, prompt);
-            if (!input.equalsIgnoreCase("y") && !input.equalsIgnoreCase("n")) {
-                System.out.printf("I don't recognize that option");
+            isValid = input.equalsIgnoreCase("y") || input.equalsIgnoreCase("n");
+            if (!isValid) {
+                System.out.println("I don't recognize that option");
             }
-        } while(!input.equalsIgnoreCase("y") && !input.equalsIgnoreCase("n"));
+        } while(!isValid);
         return input.equalsIgnoreCase("y");
     }
 
