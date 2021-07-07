@@ -6,6 +6,15 @@ public class Record {
     private String title;
     private Condition condition;
 
+    public Record() { }
+
+    public Record(int recordId, String artist, String title, Condition condition) {
+        this.recordId = recordId;
+        this.artist = artist;
+        this.title = title;
+        this.condition = condition;
+    }
+
     public int getRecordId() {
         return recordId;
     }

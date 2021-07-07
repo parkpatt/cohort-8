@@ -10,6 +10,7 @@ import java.util.List;
 public class RecordFileRepository {
 
     private final String DELIMITER = ",";
+    private final String DELIMITER_SUB = "~~~";
     private final String HEADER = "ID,Artist,Title,Condition";
 
     private final String filePath;
@@ -30,8 +31,18 @@ public class RecordFileRepository {
         } catch (IOException ex) {
             throw new DataAccessException("Can not access file: " + filePath, ex);
         }
-
         return all;
+    }
+
+    public List<Record> findByArtist(String artist) throws DataAccessException {
+        ArrayList<Record> result = new ArrayList<>();
+        String test = artist.trim();
+        for (Record record : findAll()) {
+            if (record.getArtist().equalsIgnoreCase(test)) {
+                result.add(record);
+            }
+        }
+        return result;
     }
 
     public Record add(Record record) throws DataAccessException {
@@ -40,6 +51,30 @@ public class RecordFileRepository {
         all.add(record);
         writeToFile(all);
         return record;
+    }
+
+    public boolean update(Record record) throws DataAccessException {
+        List<Record> all = findAll();
+        for(int i = 0; i < all.size(); i++) {
+            if (all.get(i).getRecordId() == record.getRecordId()) {
+                all.set(i, record);
+                writeToFile(all);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean deleteById(int recordId) throws DataAccessException {
+        List<Record> all = findAll();
+        for (int i = 0; i < all.size(); i++) {
+            if (all.get(i).getRecordId() == recordId) {
+                all.remove(i);
+                writeToFile(all);
+                return true;
+            }
+        }
+        return false;
     }
 
     private int getMaxId(List<Record> all) {
@@ -66,20 +101,29 @@ public class RecordFileRepository {
 
     private Record deserialize(String line) {
         String[] fields = line.split(DELIMITER);
-        Record record = new Record();
-        record.setRecordId(Integer.parseInt(fields[0]));
-        record.setArtist(fields[1]);
-        record.setTitle(fields[2]);
-        record.setCondition(Condition.valueOf(fields[3]));
-        return record;
+        return new Record(
+                Integer.parseInt(fields[0]),
+                restoreString(fields[1]),
+                restoreString(fields[2]),
+                Condition.valueOf(fields[3]));
     }
 
     private String serialize(Record record) {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(record.getRecordId()).append(DELIMITER);
-        stringBuilder.append(record.getArtist()).append(DELIMITER);
-        stringBuilder.append(record.getTitle()).append(DELIMITER);
+        stringBuilder.append(cleanField(record.getArtist())).append(DELIMITER);
+        stringBuilder.append(cleanField(record.getTitle())).append(DELIMITER);
         stringBuilder.append(record.getCondition());
         return stringBuilder.toString();
+    }
+
+    private String restoreString(String field) {
+        return field.replace(DELIMITER_SUB, DELIMITER);
+    }
+
+    private String cleanField(String field) {
+        return field.replace(DELIMITER, DELIMITER_SUB)
+                .replace("\r", "")
+                .replaceAll("\n", "");
     }
 }
