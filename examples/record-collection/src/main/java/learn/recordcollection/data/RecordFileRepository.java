@@ -7,7 +7,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RecordFileRepository {
+public class RecordFileRepository implements RecordRepository {
 
     private final String DELIMITER = ",";
     private final String DELIMITER_SUB = "~~~";
@@ -19,6 +19,7 @@ public class RecordFileRepository {
         this.filePath = filePath;
     }
 
+    @Override
     public List<Record> findAll() throws DataAccessException {
         ArrayList<Record> all = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
@@ -34,6 +35,7 @@ public class RecordFileRepository {
         return all;
     }
 
+    @Override
     public List<Record> findByArtist(String artist) throws DataAccessException {
         ArrayList<Record> result = new ArrayList<>();
         String test = artist.trim();
@@ -45,6 +47,7 @@ public class RecordFileRepository {
         return result;
     }
 
+    @Override
     public Record add(Record record) throws DataAccessException {
         List<Record> all = findAll();
         record.setRecordId(getMaxId(all));
@@ -53,6 +56,7 @@ public class RecordFileRepository {
         return record;
     }
 
+    @Override
     public boolean update(Record record) throws DataAccessException {
         List<Record> all = findAll();
         for(int i = 0; i < all.size(); i++) {
@@ -65,6 +69,7 @@ public class RecordFileRepository {
         return false;
     }
 
+    @Override
     public boolean deleteById(int recordId) throws DataAccessException {
         List<Record> all = findAll();
         for (int i = 0; i < all.size(); i++) {

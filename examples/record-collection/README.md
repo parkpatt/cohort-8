@@ -15,6 +15,7 @@
   * String artist
   * String title
   * Condition condition
+  * double value
 
 ## Data Layer
 
@@ -50,9 +51,9 @@
 * [X] Create `String serialize()`
   * StringBuilder, DELIMITER, DELIMITER_REPLACEMENT
 * [X] Create test for `shouldAdd()`
-* [ ] Create `findByArtist()` (optional)
-* [ ] Create `update()`
-* [ ] Create `deleteById()`
+* [X] Create `findByArtist()` (optional)
+* [X] Create `update()`
+* [X] Create `deleteById()`
 
 ## Domain Layer
 
@@ -61,6 +62,7 @@
 * Artist is required
 * Title is required
 * Condition is required
+* Value should be between $0-Max int
 
 ### Domain Classes
 
@@ -70,7 +72,41 @@
   * List messages
   * Record record
 
-* [ ] Create `RecordRepository` interface
-* [ ] Create repository test double
+* [X] Create `RecordRepository` interface
+* [X] Create repository test double
+* [X] Create `domain` package
+* [X] Create `RecordService`
+* [X] Inject repository
+* [X] Pass through `findAll()`
+* [X] Set up test class
+  * How can we test the service in isolation?
+  * Why is isolation important?
+* [X] Create test double of repo
+  * This gives us our "Known Good State" to test against
+  * We have full control
+  * Minimal implementation, just enough to support tests
+* [X] Test findall() results
+  * Verify size
+  * Verify expected data
+* [X] Create `add()` method
+  * What is a good return type?
+  * How should handle bad data?
+  * Can we improve our return type?
+* [X] Create `RecordResult`
+* [X] Test `add()` happy path
+  * Verify success
+  * Verify expected payload
+* [X] Test `add()` validation based on business rules defined
+  * Verify not success
+  * Verify expected messages
+  * We can't test every bad value, how should we prioritize?
+    * Min/max values? Length?
+* [ ] Create `update()` method
+  * Do the same business rules apply?
+  * Are there rules that apply here but not to `create()`?
+* [ ] Extract `validate()` method
+  * Isolate shared validation
+* [ ] Revisit `create()` tests, see if we broke anything
+* [ ] Test `update()`
 
 ## UI Layer
