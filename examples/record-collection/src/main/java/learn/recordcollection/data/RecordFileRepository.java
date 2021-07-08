@@ -105,7 +105,8 @@ public class RecordFileRepository {
                 Integer.parseInt(fields[0]),
                 restoreString(fields[1]),
                 restoreString(fields[2]),
-                Condition.valueOf(fields[3]));
+                Condition.valueOf(fields[3]),
+                Double.parseDouble(fields[4]));
     }
 
     private String serialize(Record record) {
@@ -113,7 +114,8 @@ public class RecordFileRepository {
         stringBuilder.append(record.getRecordId()).append(DELIMITER);
         stringBuilder.append(cleanField(record.getArtist())).append(DELIMITER);
         stringBuilder.append(cleanField(record.getTitle())).append(DELIMITER);
-        stringBuilder.append(record.getCondition());
+        stringBuilder.append(record.getCondition()).append(DELIMITER);
+        stringBuilder.append(record.getValue());
         return stringBuilder.toString();
     }
 

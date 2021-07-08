@@ -107,7 +107,7 @@ class RecordFileRepositoryTest {
 
     @Test
     void shouldUpdate() throws DataAccessException {
-        Record record = new Record(3, "Madvillain", "Madvillainy 2", Condition.POOR);
+        Record record = new Record(3, "Madvillain", "Madvillainy 2", Condition.POOR, 10);
         assertTrue(repository.update(record));
         List<Record> all = repository.findAll();
         assertEquals("Madvillainy 2", all.get(2).getTitle());
@@ -115,7 +115,7 @@ class RecordFileRepositoryTest {
 
     @Test
     void shouldNotUpdateNotExisting() throws DataAccessException {
-        Record record = new Record(999, "Madvillain", "Madvillainy 2", Condition.POOR);
+        Record record = new Record(999, "Madvillain", "Madvillainy 2", Condition.POOR, 10);
         assertFalse(repository.update(record));
     }
 

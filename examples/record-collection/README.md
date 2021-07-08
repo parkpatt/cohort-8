@@ -56,12 +56,19 @@
 
 ## Domain Layer
 
+### Domain Rules
+
+* Artist is required
+* Title is required
+* Condition is required
+
 ### Domain Classes
 
 * RecordService
   * RecordRepository repository
-* Result
+* RecordResult
   * List messages
+  * Record record
 
 * [ ] Create `RecordRepository` interface
 * [ ] Create repository test double
