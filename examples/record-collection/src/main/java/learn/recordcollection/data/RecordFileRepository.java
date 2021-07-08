@@ -11,7 +11,7 @@ public class RecordFileRepository {
 
     private final String DELIMITER = ",";
     private final String DELIMITER_SUB = "~~~";
-    private final String HEADER = "ID,Artist,Title,Condition";
+    private final String HEADER = "ID,Artist,Title,Condition,Value";
 
     private final String filePath;
 
