@@ -80,8 +80,14 @@ public class Controller {
         String artist = view.readArtist();
         List<Record> records = service.findByArtist(artist);
         Record record = view.getRecord(records, String.format("Records by `%s`", artist.trim()));
-
-
+        record = view.update(record);
+        RecordResult result = service.update(record);
+        if (result.isSuccess()) {
+            view.displayText(String.format("`%s` by `%s` successfully updated!",
+                    record.getTitle(), record.getArtist()));
+        } else {
+            view.displayErrors(result.getMessages());
+        }
     }
 
     private void deleteRecord() {

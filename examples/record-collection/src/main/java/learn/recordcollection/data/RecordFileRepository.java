@@ -28,7 +28,7 @@ public class RecordFileRepository implements RecordRepository {
                 all.add(deserialize(line));
             }
         } catch (FileNotFoundException ex) {
-            //
+            // No file yet, that's OK
         } catch (IOException ex) {
             throw new DataAccessException("Can not access file: " + filePath, ex);
         }

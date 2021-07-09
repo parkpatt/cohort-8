@@ -31,12 +31,24 @@ public class View {
 
     private void displayRecords(List<Record> records, String title, boolean showMenuOptions) {
         displayHeader(title);
+        String tableHeader = String.format("%-15s  %-25s  %-3s   %7s", "Artist", "Title", "", "Value");
+        displayText(tableHeader);
         for (int i = 0; i < records.size(); i++) {
+            String rowText = recordRow(records.get(i));
             String recordText = showMenuOptions
-                    ? String.format("%s. %s", i + 1, records.get(i).toString())
-                    : records.get(i).toString();
+                    ? String.format("%s. %s", i + 1, rowText)
+                    : rowText;
             displayText(recordText);
         }
+    }
+
+    private String recordRow(Record record) {
+        return String.format("%-15s  %-25s  %-3s  $%7s",
+                record.getArtist(),
+                record.getTitle(),
+                record.getCondition().getAbbreviation(),
+                String.format("%,.2f", record.getValue())
+        );
     }
 
     public Record makeRecord() {
@@ -53,16 +65,16 @@ public class View {
         int selection;
         do {
             selection = readInt("Record: ");
-        } while (selection < 1 || selection >= records.size());
-
+        } while (selection < 1 || selection > records.size());
         return records.get(selection - 1);
     }
 
     public Record update(Record record) {
-        record.setArtist(readString("Artist: "));
-        record.setTitle(readString("Title: "));
-        record.setCondition(readCondition("Condition: "));
-        record.setValue(readDouble("Value: "));
+        record.setArtist(readString(String.format("Artist (%s):", record.getArtist())));
+        record.setTitle(readString(String.format("Title (%s):", record.getTitle())));
+        record.setCondition(readCondition(String.format("Condition (%s): ",
+                record.getCondition().getAbbreviation())));
+        record.setValue(readDouble(String.format("Value (%,.2f)", record.getValue())));
         return record;
     }
 
@@ -98,7 +110,7 @@ public class View {
             try {
                 return Integer.parseInt(value);
             } catch (NumberFormatException ex) {
-                System.out.printf("'%s' is not a valid number.%n", value);
+                displayText(String.format("'%s' is not a valid number.%n", value));
             }
         }
     }
@@ -109,7 +121,7 @@ public class View {
             try {
                 return Double.parseDouble(value);
             } catch (NumberFormatException ex) {
-                System.out.printf("'%s' is not a valid number.%n", value);
+                displayText(String.format("'%s' is not a valid number.%n", value));
             }
         }
     }
@@ -124,7 +136,7 @@ public class View {
             try {
                 return Condition.valueOf(selection);
             } catch (IllegalArgumentException ex) {
-                System.out.printf("'%s' is not a valid Condition.%n", selection);
+                displayText(String.format("'%s' is not a Condition number.%n", selection));
             }
         }
     }

@@ -161,7 +161,7 @@
   * `switch(option)` ...
   * default "I don't understand."
 * [ ] Create `run()` app launch
-  * launch `runmenu()`
+  * launch `runMenu()`
   * Catch DataAccessException
 * [ ] Stub out methods for menu options
 * [ ] Extract `printHeader()` method in `View`?
