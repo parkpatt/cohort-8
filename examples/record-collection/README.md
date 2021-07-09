@@ -1,5 +1,13 @@
 # Record Collection
 
+## High Level Requirements
+
+* Add a Record
+* Update a Record.
+* Remove a Record.
+* Display all Records.
+* Display all Records by Artist.
+
 ## Models
 
 * Condition
@@ -22,8 +30,13 @@
 ### Data Classes
 
 * RecordRepository (interface)
-* RecordFileRepository
-* DataAccessException
+  * List findAll()
+  * List findByArtist()
+  * Record add()
+  * boolean update()
+  * boolean deleteById()
+* RecordFileRepository implement RecordRepository
+* DataAccessException extend Exception
 
 ### Data Steps
 
@@ -62,7 +75,7 @@
 * Artist is required
 * Title is required
 * Condition is required
-* Value should be between $0-Max int
+* Value should be between $0 - 10 million
 
 ### Domain Classes
 
@@ -71,6 +84,8 @@
 * RecordResult
   * List messages
   * Record record
+
+### Domain Steps
 
 * [X] Create `RecordRepository` interface
 * [X] Create repository test double
@@ -110,3 +125,60 @@
 * [ ] Test `update()`
 
 ## UI Layer
+
+### UI Classes
+
+* View
+  * Scanner scanner
+* Controller
+  * RecordService service
+  * View view
+
+### UI Steps
+
+* We finally get to run our app!
+* [ ] Create `View`
+* [ ] Create `Controller`
+  * field for `view`
+  * field for `service`
+  * generate constructor
+  * add `run` method & print to confirm
+* [ ] Create `App -> main`
+* [ ] Wire up dependencies
+  * Try instantiate `Controller` (need view)
+  * Instantiate `View` and pass in
+  * Try instantiate `Service`, (need repo)
+  * Instantiate `RecordFileRepository` with production filePath, complete DI
+* [ ] Run app!
+* [ ] Create menu loop in `runMenu()`
+* [ ] Create `getMainMenuOption()` in `view`
+  * "1. Create Record"
+  * "2. View Record"
+  * ....
+  * "0. Exit"
+* [ ] Create menu loop in `runMenu()`
+  * Prompt for `option`
+  * `switch(option)` ...
+  * default "I don't understand."
+* [ ] Create `run()` app launch
+  * launch `runmenu()`
+  * Catch DataAccessException
+* [ ] Stub out methods for menu options
+* [ ] Extract `printHeader()` method in `View`?
+* [ ] Create `displayRecords()` in `View` & print list
+  * This seems like a good time to make a friendly name for Condition, etc.?
+  * Revisit enum, add `displayName`
+* [ ] Add `makeRecord()` in `View`
+  * Import some premade input reader helpers
+  * Prompt for data
+  * Maybe a menu for `type` using our new friendly `displayName`?
+  * Handle success
+  * Handle error (maybe `displayMessage()` method?)
+* [ ] Add view for a single `Record`?
+  * Reuse list view for menu?
+  * Another use for our friendly type name!
+* [ ] View by `type`?
+* [ ] Update?
+* [ ] Delete?
+* [ ] (Stretch goal) Refactor `readCondition` to menu
+* [ ] (Stretch goal) Refactor main menu to enum?
