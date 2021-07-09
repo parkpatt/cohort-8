@@ -9,7 +9,6 @@
 * Jared Ferguson
 * Smita Allerson
 * Ryan Thompson
-* Alexandra Dittmer
 * Abi Keefe
 * Jayson Leon
 * Kate Pennington
