@@ -115,7 +115,7 @@ class RecordServiceTest {
 
     @Test
     void shouldNotAddRecordWithValueOverTenMillion() throws DataAccessException {
-        Record record = new Record(0, "Bon Iver", "For Emma, Forever Ago", Condition.FAIR, 10000001);
+        Record record = new Record(0, "Bon Iver", "For Emma, Forever Ago", Condition.FAIR, 10000000.01);
 
         RecordResult actual = service.add(record);
 

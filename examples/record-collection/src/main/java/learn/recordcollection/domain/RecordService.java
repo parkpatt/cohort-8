@@ -7,6 +7,8 @@ import learn.recordcollection.models.Record;
 import java.util.List;
 
 public class RecordService {
+    public static double MIN_VALUE = 0;
+    public static double MAX_VALUE = 10000000;
 
     private final RecordRepository repository;
 
@@ -72,7 +74,7 @@ public class RecordService {
         if (record.getTitle() == null || record.getTitle().isBlank()) {
             result.addMessage("Title is required.");
         }
-        if (record.getValue() < 0 || record.getValue() > 10000000) {
+        if (record.getValue() < MIN_VALUE || record.getValue() > MAX_VALUE) {
             result.addMessage("Value should be between $0-10,000,000.");
         }
         return result;

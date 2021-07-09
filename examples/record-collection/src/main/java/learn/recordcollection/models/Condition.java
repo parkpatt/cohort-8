@@ -1,5 +1,21 @@
 package learn.recordcollection.models;
 
 public enum Condition {
-    MINT, NEAR_MINT, VERY_GOOD_PLUS, VERY_GOOD, GOOD, FAIR, POOR
+    MINT("M"),
+    NEAR_MINT("NM"),
+    VERY_GOOD_PLUS("VG+"),
+    VERY_GOOD("VG"),
+    GOOD("G"),
+    FAIR("F"),
+    POOR("P");
+
+    private final String abbreviation;
+
+    Condition(String abbreviation) {
+        this.abbreviation = abbreviation;
+    }
+
+    public String getAbbreviation() {
+        return abbreviation;
+    }
 }
