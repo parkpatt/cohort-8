@@ -39,8 +39,8 @@
 
 ### Week 3
 
-* Group A - Brendan
-* Group B - Josh/Irina
+* Group A - Corbin
+* Group B - Corbin
 
 ### Week 4
 
