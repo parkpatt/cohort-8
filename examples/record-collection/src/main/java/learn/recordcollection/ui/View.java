@@ -22,28 +22,27 @@ public class View {
     }
 
     public void displayRecords(List<Record> records, String title) {
-        displayRecords(records, title, false);
-    }
-
-    public void displayRecordsMenu(List<Record> records, String title) {
-        displayRecords(records, title, true);
-    }
-
-    private void displayRecords(List<Record> records, String title, boolean showMenuOptions) {
-        displayHeader(title);
-        String tableHeader = String.format("%-15s  %-25s  %-3s   %7s", "Artist", "Title", "", "Value");
-        displayText(tableHeader);
-        for (int i = 0; i < records.size(); i++) {
-            String rowText = recordRow(records.get(i));
-            String recordText = showMenuOptions
-                    ? String.format("%s. %s", i + 1, rowText)
-                    : rowText;
-            displayText(recordText);
+        if (records.size() == 0) {
+            displayText("No records found.");
+        } else {
+            String tableHeader = String.format("#  %-15s  %-25s  %-3s   %7s", "Artist", "Title", "", "$ Value");
+            displayTableHeader(title, tableHeader);
+            for (int i = 0; i < records.size(); i++) {
+                displayText(recordRow(i, records.get(i)));
+            }
+            printBorder(tableHeader.length());
         }
     }
 
-    private String recordRow(Record record) {
-        return String.format("%-15s  %-25s  %-3s  $%7s",
+    private void displayTableHeader(String title, String tableHeader) {
+        displayHeader(title);
+        displayText(tableHeader);
+        printBorder(tableHeader.length());
+    }
+
+    private String recordRow(int index, Record record) {
+        return String.format("%s. %-15s  %-25s  %-3s   %7s",
+                index + 1,
                 record.getArtist(),
                 record.getTitle(),
                 record.getCondition().getAbbreviation(),
@@ -61,7 +60,9 @@ public class View {
     }
 
     public Record getRecord(List<Record> records, String title) {
-        displayRecordsMenu(records, title);
+        displayRecords(records, title);
+        if (records.size() == 0) return null;
+
         int selection;
         do {
             selection = readInt("Record: ");
@@ -70,12 +71,25 @@ public class View {
     }
 
     public Record update(Record record) {
-        record.setArtist(readString(String.format("Artist (%s):", record.getArtist())));
-        record.setTitle(readString(String.format("Title (%s):", record.getTitle())));
+        String artist = readString(String.format("Artist (%s):", record.getArtist()));
+        if (!artist.isBlank()) {
+            record.setArtist(artist);
+        }
+        String title = readString(String.format("Title (%s):", record.getTitle()));
+        if (!title.isBlank()) {
+            record.setTitle(title);
+        }
         record.setCondition(readCondition(String.format("Condition (%s): ",
                 record.getCondition().getAbbreviation())));
         record.setValue(readDouble(String.format("Value (%,.2f)", record.getValue())));
         return record;
+    }
+
+    public boolean confirmDelete(Record record) {
+        displayHeader("Delete");
+        displayText("Are you sure you want to delete this record?");
+        displayText(recordRow(1, record));
+        return readBoolean("Delete? [Y]: ");
     }
 
     public void displayHeader(String text) {
@@ -97,6 +111,10 @@ public class View {
 
     public String readArtist() {
         return readString("Artist: ");
+    }
+
+    private void printBorder(int length) {
+        System.out.println("-".repeat(length));
     }
 
     private String readString(String prompt) {
@@ -124,6 +142,11 @@ public class View {
                 displayText(String.format("'%s' is not a valid number.%n", value));
             }
         }
+    }
+
+    private boolean readBoolean(String prompt) {
+        String value = readString(prompt).toUpperCase().trim();
+        return value.length() > 0 && value.charAt(0) == 'Y';
     }
 
     private Condition readCondition(String prompt) {

@@ -80,17 +80,32 @@ public class Controller {
         String artist = view.readArtist();
         List<Record> records = service.findByArtist(artist);
         Record record = view.getRecord(records, String.format("Records by `%s`", artist.trim()));
-        record = view.update(record);
-        RecordResult result = service.update(record);
-        if (result.isSuccess()) {
-            view.displayText(String.format("`%s` by `%s` successfully updated!",
-                    record.getTitle(), record.getArtist()));
-        } else {
-            view.displayErrors(result.getMessages());
+        if (record != null) {
+            record = view.update(record);
+            RecordResult result = service.update(record);
+            if (result.isSuccess()) {
+                view.displayText(String.format("`%s` by `%s` successfully updated!",
+                        record.getTitle(), record.getArtist()));
+            } else {
+                view.displayErrors(result.getMessages());
+            }
         }
     }
 
-    private void deleteRecord() {
-
+    private void deleteRecord() throws DataAccessException {
+        String artist = view.readArtist();
+        List<Record> records = service.findByArtist(artist);
+        Record record = view.getRecord(records, String.format("Records by `%s`", artist.trim()));
+        if (record != null) {
+            boolean delete = view.confirmDelete(record);
+            if (delete) {
+                RecordResult result = service.deleteById(record.getRecordId());
+                if (result.isSuccess()) {
+                    view.displayText("Record successfully deleted!");
+                } else {
+                    view.displayErrors(result.getMessages());
+                }
+            }
+        }
     }
 }
