@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="person" class="learn.spring.Person">
+        <constructor-arg value="Neil Stephenson"/>
+    </bean>
+
+    <bean id="snowCrash" class="learn.spring.Book">
+        <constructor-arg index="0" value="Snow Crash"/>
+        <constructor-arg index="1" ref="person"/>
+    </bean>
+
+    <bean id="crypto" class="learn.spring.Book">
+        <constructor-arg index="0" value="Cryptonomicon"/>
+        <constructor-arg index="1" ref="person"/>
+    </bean>
+
+    <bean id="proto" class="learn.spring.Book" scope="prototype">
+        <constructor-arg index="0" value="ProtoBook"/>
+        <constructor-arg index="1" ref="person"/>
+        <constructor-arg>
+            <list></list>
+        </constructor-arg>
+    </bean>
+
+</beans>
