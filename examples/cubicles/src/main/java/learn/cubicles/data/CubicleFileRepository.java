@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class CubicleFileRepository {
+public class CubicleFileRepository implements CubicleRepository {
 
     private final String DELIMITER = ",";
     private final String HEADER = "ID,FLOOR,ROW,COLUMN";
@@ -18,6 +18,7 @@ public class CubicleFileRepository {
         this.filePath = filePath;
     }
 
+    @Override
     public List<Cubicle> findAll() throws DataAccessException {
         ArrayList<Cubicle> result = new ArrayList<>();
 
@@ -34,6 +35,7 @@ public class CubicleFileRepository {
         return result;
     }
 
+    @Override
     public Cubicle create(Cubicle cubicle) throws DataAccessException {
         List<Cubicle> all = findAll();
         cubicle.setCubicleId(nextId(all));
@@ -42,6 +44,7 @@ public class CubicleFileRepository {
         return cubicle;
     }
 
+    @Override
     public boolean update(Cubicle cubicle) throws DataAccessException {
         List<Cubicle> all = findAll();
         for (int i = 0; i < all.size(); i++) {
