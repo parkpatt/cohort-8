@@ -6,6 +6,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class CubicleFileRepository implements CubicleRepository {
 
@@ -59,9 +60,8 @@ public class CubicleFileRepository implements CubicleRepository {
 
     private int nextId(List<Cubicle> cubicles) {
         return cubicles.stream()
-                .map(Cubicle::getCubicleId)
-                .reduce(Integer::max)
-                .orElse(0) + 1;
+                .collect(Collectors.summarizingInt(Cubicle::getCubicleId))
+                .getMax() + 1;
     }
 
     private void writeToFile(List<Cubicle> cubicles) throws DataAccessException {

@@ -2,11 +2,21 @@ package learn.recordcollection.ui;
 
 import learn.recordcollection.models.Condition;
 import learn.recordcollection.models.Record;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Scanner;
 
+@Component
 public class View {
+
+    private TextIO textIO = new ConsoleIO();
+
+    @Autowired
+    public void setTextIO(TextIO textIO) {
+        this.textIO = textIO;
+    }
 
     private Scanner console = new Scanner(System.in);
 

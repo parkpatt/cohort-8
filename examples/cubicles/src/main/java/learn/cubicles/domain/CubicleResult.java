@@ -3,7 +3,6 @@ package learn.cubicles.domain;
 import learn.cubicles.models.Cubicle;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class CubicleResult {

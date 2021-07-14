@@ -3,9 +3,12 @@ package learn.recordcollection.domain;
 import learn.recordcollection.data.DataAccessException;
 import learn.recordcollection.data.RecordRepository;
 import learn.recordcollection.models.Record;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class RecordService {
     public static double MIN_VALUE = 0;
     public static double MAX_VALUE = 10000000;

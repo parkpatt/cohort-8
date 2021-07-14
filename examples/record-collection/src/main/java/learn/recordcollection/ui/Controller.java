@@ -4,9 +4,11 @@ import learn.recordcollection.data.DataAccessException;
 import learn.recordcollection.domain.RecordResult;
 import learn.recordcollection.domain.RecordService;
 import learn.recordcollection.models.Record;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@Component
 public class Controller {
     private final RecordService service;
     private final View view;
