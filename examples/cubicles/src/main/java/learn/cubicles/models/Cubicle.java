@@ -5,14 +5,16 @@ public class Cubicle {
     private int floor;
     private int row;
     private int column;
+    private String assignedEmployeeName;
 
     public Cubicle() {}
 
-    public Cubicle(int cubicleId, int floor, int row, int column) {
+    public Cubicle(int cubicleId, int floor, int row, int column, String assignedEmployeeName) {
         this.cubicleId = cubicleId;
         this.floor = floor;
         this.row = row;
         this.column = column;
+        this.assignedEmployeeName = assignedEmployeeName;
     }
 
     public int getCubicleId() {
@@ -45,5 +47,13 @@ public class Cubicle {
 
     public void setColumn(int column) {
         this.column = column;
+    }
+
+    public String getAssignedEmployeeName() {
+        return assignedEmployeeName;
+    }
+
+    public void setAssignedEmployeeName(String assignedEmployeeName) {
+        this.assignedEmployeeName = assignedEmployeeName;
     }
 }

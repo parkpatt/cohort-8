@@ -9,19 +9,19 @@ public class CubicleRepositoryDouble implements CubicleRepository {
     @Override
     public List<Cubicle> findAll() throws DataAccessException {
         return Arrays.asList(
-                new Cubicle(1,1,1,1),
-                new Cubicle(2,3,4,5),
-                new Cubicle(3,3,4,4)
+                new Cubicle(1,1,1,1, "Midge"),
+                new Cubicle(2,3,4,5, "Hermione"),
+                new Cubicle(3,3,4,4, "Roger")
         );
     }
 
     @Override
     public Cubicle create(Cubicle cubicle) throws DataAccessException {
-        return null;
+        return cubicle;
     }
 
     @Override
     public boolean update(Cubicle cubicle) throws DataAccessException {
-        return false;
+        return cubicle.getCubicleId() == 1;
     }
 }

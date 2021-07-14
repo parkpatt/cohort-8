@@ -13,11 +13,11 @@ public class CubicleResult {
         return messages.size() == 0;
     }
 
-    private void addMessage(String message) {
+    public void addMessage(String message) {
         this.messages.add(message);
     }
 
-    private List<String> getMessages() {
+    public List<String> getMessages() {
         return new ArrayList<>(messages);
     }
 
