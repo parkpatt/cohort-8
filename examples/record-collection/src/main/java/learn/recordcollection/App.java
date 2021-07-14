@@ -6,6 +6,8 @@ import learn.recordcollection.domain.RecordService;
 import learn.recordcollection.models.Record;
 import learn.recordcollection.ui.View;
 import learn.recordcollection.ui.Controller;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +15,12 @@ import java.util.List;
 
 public class App {
     public static void main(String[] args) {
+        ApplicationContext context = new ClassPathXmlApplicationContext("dependency-configuration.xml");
+        Controller controller = context.getBean(Controller.class);
+        controller.tryRun();
+    }
+
+    public static void manualConfiguration() {
         RecordRepository repository = new RecordFileRepository("./data/records.csv");
         RecordService service = new RecordService(repository);
         View view = new View();
