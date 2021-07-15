@@ -1,5 +1,9 @@
 package learn.models;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class Driver {
     private final String firstName;
     private final String lastName;
@@ -15,6 +19,14 @@ public class Driver {
 
     public String getStateAbbr() {
         return stateAbbr;
+    }
+
+    public List<String> getFaveColor() {
+        return Arrays.asList(
+                "red",
+                "yellow",
+                "blue"
+        );
     }
 
     public Driver(String firstName, String lastName, String stateAbbr) {
