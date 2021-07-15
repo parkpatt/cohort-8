@@ -9,7 +9,6 @@
 * Jared Ferguson
 * Smita Allerson
 * Ryan Thompson
-* Alexandra Dittmer
 * Abi Keefe
 * Jayson Leon
 * Kate Pennington
@@ -40,8 +39,8 @@
 
 ### Week 3
 
-* Group A - Brendan
-* Group B - Josh/Irina
+* Group A - Corbin
+* Group B - Corbin
 
 ### Week 4
 
