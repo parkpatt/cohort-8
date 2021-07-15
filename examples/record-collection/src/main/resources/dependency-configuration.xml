@@ -5,7 +5,7 @@
         https://www.springframework.org/schema/beans/spring-beans.xsd">
 
     <bean id = "repository" class="learn.recordcollection.data.RecordFileRepository">
-            <constructor-arg value="./data/records.csv"/>
+            <!-- <constructor-arg value="./data/records.csv"/> -->
     </bean>
 
     <bean id="service" class="learn.recordcollection.domain.RecordService">

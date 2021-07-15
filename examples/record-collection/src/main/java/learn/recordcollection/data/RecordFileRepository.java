@@ -2,11 +2,14 @@ package learn.recordcollection.data;
 
 import learn.recordcollection.models.Condition;
 import learn.recordcollection.models.Record;
+import org.springframework.stereotype.Repository;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Repository
 public class RecordFileRepository implements RecordRepository {
 
     private final String DELIMITER = ",";
@@ -15,7 +18,7 @@ public class RecordFileRepository implements RecordRepository {
 
     private final String filePath;
 
-    public RecordFileRepository(String filePath) {
+    public RecordFileRepository(@Value("${recordsFilePath}") String filePath) {
         this.filePath = filePath;
     }
 

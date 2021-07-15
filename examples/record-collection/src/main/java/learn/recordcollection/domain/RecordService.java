@@ -3,9 +3,11 @@ package learn.recordcollection.domain;
 import learn.recordcollection.data.DataAccessException;
 import learn.recordcollection.data.RecordRepository;
 import learn.recordcollection.models.Record;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class RecordService {
 
     private final RecordRepository repository;

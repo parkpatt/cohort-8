@@ -3,11 +3,13 @@ package learn.recordcollection.ui;
 import learn.recordcollection.domain.RecordResult;
 import learn.recordcollection.models.Condition;
 import learn.recordcollection.models.Record;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Locale;
 import java.util.Scanner;
 
+@Component
 public class View {
     private final Scanner console = new Scanner(System.in);
 
