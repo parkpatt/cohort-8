@@ -1,0 +1,46 @@
+<<<<<<< HEAD
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id = "repository" class="learn.recordcollection.data.RecordFileRepository">
+            <!-- <constructor-arg value="./data/records.csv"/> -->
+    </bean>
+
+    <bean id="service" class="learn.recordcollection.domain.RecordService">
+            <constructor-arg ref = "repository"/>
+    </bean>
+
+    <bean id = "view" class = "learn.recordcollection.ui.View"/>
+
+    <bean class = "learn.recordcollection.ui.Controller">
+        <constructor-arg index="0" ref = "service"/>
+        <constructor-arg index="1" ref = "view"/>
+    </bean>
+
+</beans>
+=======
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="repository" class="learn.recordcollection.data.RecordFileRepository">
+        <constructor-arg value="./data/records.csv"/>
+    </bean>
+
+    <bean id="service" class="learn.recordcollection.domain.RecordService">
+        <constructor-arg ref="repository"/>
+    </bean>
+
+    <bean id="view" class="learn.recordcollection.ui.View"/>
+
+    <bean class="learn.recordcollection.ui.Controller">
+        <constructor-arg ref="service"/>
+        <constructor-arg ref="view"/>
+    </bean>
+
+</beans>
+>>>>>>> eb983f0c1b1af51da999e65215d750aaa7907d11
