@@ -51,7 +51,7 @@ public class App {
 //                .forEach(c -> System.out.println(c));
 
 
-//        cars.stream()
+//         cars.stream()
 //                .filter(car -> car.getExteriorColor().equalsIgnoreCase("Orange"))
 //                .skip(10)
 //                .limit(10)
@@ -69,30 +69,41 @@ public class App {
                 //.forEach((k, v) -> System.out.println("Year: " + k + ", Miles: " + v.getAverage()));
 
 
-        cars.stream()
-                .filter(car -> car.getExteriorColor().equalsIgnoreCase("Orange")
-                        && car.getYear() == 2010
-                        && car.getDrivers().stream().anyMatch(d -> d.getFirstName().startsWith("D"))
-                )
-                .findFirst()
-                .ifPresent(car -> System.out.println(car));
-
-        Car theCar = cars.stream()
-                .filter(car -> car.getExteriorColor().equalsIgnoreCase("Orange")
-                        && car.getYear() == 2010
-                        && car.getDrivers().stream().anyMatch(d -> d.getFirstName().startsWith("D"))
-                )
-                .findFirst()
-                .orElse(null);
+//        cars.stream()
+//                .filter(car -> car.getExteriorColor().equalsIgnoreCase("Orange")
+//                        && car.getYear() == 2010
+//                        && car.getDrivers().stream().anyMatch(d -> d.getFirstName().startsWith("D"))
+//                )
+//                .findFirst()
+//                .ifPresent(car -> System.out.println(car));
+//
+//        Car theCar = cars.stream()
+//                .filter(car -> car.getExteriorColor().equalsIgnoreCase("Orange")
+//                        && car.getYear() == 2010
+//                        && car.getDrivers().stream().anyMatch(d -> d.getFirstName().startsWith("D"))
+//                )
+//                .findFirst()
+//                .orElse(null);
 
 
 //        cars.stream()
-//                .map(car -> new ColorModel(car.getYear(), car.getExteriorColor(), car.getModel().getName()))
-//                .collect(Collectors.groupingBy(c -> c.getYear(), c -> c))
+//                .map(car ->  new Anonymous() {
+//                    int year = car.getYear();
+//                    String color = car.getExteriorColor();
+//                })
+//                .forEach(a -> System.out.println(a.year));
+
+//        BigDecimal gpa = students.stream()
+//                .map(Student::getGpa)
+//                .max(BigDecimal::compareTo)
+//                .orElse(BigDecimal.ZERO);
 
 
 
     }
+
+    interface Anonymous {}
+
 
     static class ColorModel {
         private int year;
