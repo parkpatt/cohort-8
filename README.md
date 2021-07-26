@@ -49,8 +49,8 @@
 
 ### Week 5
 
-* Group A - Brendan
-* Group B - Irina
+* Group A - Corbin
+* Group B - Irina & Brendan
 
 ### Week 6
 
