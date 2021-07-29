@@ -1,38 +1,17 @@
 package learn.recordcollection.ui;
 
-<<<<<<< HEAD
+
 import learn.recordcollection.domain.RecordResult;
 import learn.recordcollection.models.Condition;
 import learn.recordcollection.models.Record;
 import org.springframework.stereotype.Component;
-
 import java.util.List;
-import java.util.Locale;
-=======
-import learn.recordcollection.models.Condition;
-import learn.recordcollection.models.Record;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
-import java.util.List;
->>>>>>> eb983f0c1b1af51da999e65215d750aaa7907d11
 import java.util.Scanner;
 
 @Component
 public class View {
-<<<<<<< HEAD
     private final Scanner console = new Scanner(System.in);
-
-    public int getMenuSelection() {
-        printHeader("Main Menu");
-        System.out.println("0. Exit");
-        System.out.println("1. View All Records");
-        System.out.println("2. View Records by Artist");
-        System.out.println("3. Add Record");
-        System.out.println("4. Update Record");
-        System.out.println("5. Delete Record");
-        return readInt("Select [0-5]: ", 0, 5);
-    }
 
     public void printHeader(String message) {
         System.out.println();
@@ -65,20 +44,12 @@ public class View {
         }
     }
 
-    public Record makeRecord() {
-        Record result = new Record();
-        result.setArtist(readRequiredString("Artist: "));
-        result.setTitle(readRequiredString("Title: "));
-=======
-
     private TextIO textIO = new ConsoleIO();
 
     @Autowired
     public void setTextIO(TextIO textIO) {
         this.textIO = textIO;
     }
-
-    private Scanner console = new Scanner(System.in);
 
     public int getMenuSelection() {
         displayHeader("Main Menu");
@@ -89,25 +60,6 @@ public class View {
         displayText("4. Update a Record");
         displayText("5. Delete a Record");
         return readInt("Select [0-5]: ");
-    }
-
-    public void displayRecords(List<Record> records, String title) {
-        if (records.size() == 0) {
-            displayText("No records found.");
-        } else {
-            String tableHeader = String.format("#  %-15s  %-25s  %-3s   %7s", "Artist", "Title", "", "$ Value");
-            displayTableHeader(title, tableHeader);
-            for (int i = 0; i < records.size(); i++) {
-                displayText(recordRow(i, records.get(i)));
-            }
-            printBorder(tableHeader.length());
-        }
-    }
-
-    private void displayTableHeader(String title, String tableHeader) {
-        displayHeader(title);
-        displayText(tableHeader);
-        printBorder(tableHeader.length());
     }
 
     private String recordRow(int index, Record record) {
@@ -124,13 +76,11 @@ public class View {
         Record result = new Record();
         result.setArtist(readString("Artist: "));
         result.setTitle(readString("Title: "));
->>>>>>> eb983f0c1b1af51da999e65215d750aaa7907d11
         result.setCondition(readCondition("Condition: "));
         result.setValue(readDouble("Value: "));
         return result;
     }
 
-<<<<<<< HEAD
     public Record findRecord(List<Record> records) {
         displayRecords(records, "Records by Id: ");
         if (records.size() == 0) {
@@ -180,11 +130,6 @@ public class View {
             }
         }
         return record;
-    }
-
-    public String readString(String message) {
-        System.out.print(message);
-        return console.nextLine();
     }
 
     public String readRequiredString(String message) {
@@ -243,13 +188,6 @@ public class View {
         return result;
     }
 
-    public Condition readCondition(String prompt) {
-        printHeader("Condition Options");
-        for (Condition condition : Condition.values()) {
-            System.out.println(condition.toString());
-        }
-
-=======
     public Record getRecord(List<Record> records, String title) {
         displayRecords(records, title);
         if (records.size() == 0) return null;
@@ -259,21 +197,6 @@ public class View {
             selection = readInt("Record: ");
         } while (selection < 1 || selection > records.size());
         return records.get(selection - 1);
-    }
-
-    public Record update(Record record) {
-        String artist = readString(String.format("Artist (%s):", record.getArtist()));
-        if (!artist.isBlank()) {
-            record.setArtist(artist);
-        }
-        String title = readString(String.format("Title (%s):", record.getTitle()));
-        if (!title.isBlank()) {
-            record.setTitle(title);
-        }
-        record.setCondition(readCondition(String.format("Condition (%s): ",
-                record.getCondition().getAbbreviation())));
-        record.setValue(readDouble(String.format("Value (%,.2f)", record.getValue())));
-        return record;
     }
 
     public boolean confirmDelete(Record record) {
@@ -313,28 +236,6 @@ public class View {
         return console.nextLine();
     }
 
-    private int readInt(String prompt) {
-        while (true) {
-            String value = readString(prompt);
-            try {
-                return Integer.parseInt(value);
-            } catch (NumberFormatException ex) {
-                displayText(String.format("'%s' is not a valid number.%n", value));
-            }
-        }
-    }
-
-    private double readDouble(String prompt) {
-        while (true) {
-            String value = readString(prompt);
-            try {
-                return Double.parseDouble(value);
-            } catch (NumberFormatException ex) {
-                displayText(String.format("'%s' is not a valid number.%n", value));
-            }
-        }
-    }
-
     private boolean readBoolean(String prompt) {
         String value = readString(prompt).toUpperCase().trim();
         return value.length() > 0 && value.charAt(0) == 'Y';
@@ -345,23 +246,13 @@ public class View {
         for (Condition condition : Condition.values()) {
             displayText(condition.toString());
         }
->>>>>>> eb983f0c1b1af51da999e65215d750aaa7907d11
         while (true) {
             String selection = readString(prompt).toUpperCase().trim();
             try {
                 return Condition.valueOf(selection);
             } catch (IllegalArgumentException ex) {
-<<<<<<< HEAD
                 System.out.printf("%s is not a valid Condition.%n", selection);
             }
         }
     }
-
-
-=======
-                displayText(String.format("'%s' is not a Condition number.%n", selection));
-            }
-        }
-    }
->>>>>>> eb983f0c1b1af51da999e65215d750aaa7907d11
 }

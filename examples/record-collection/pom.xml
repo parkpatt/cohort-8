@@ -23,11 +23,7 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
-<<<<<<< HEAD
             <version>5.2.7.RELEASE</version>
-=======
-            <version>5.2.8.RELEASE</version>
->>>>>>> eb983f0c1b1af51da999e65215d750aaa7907d11
         </dependency>
     </dependencies>
 

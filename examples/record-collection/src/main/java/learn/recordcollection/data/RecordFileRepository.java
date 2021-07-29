@@ -2,14 +2,8 @@ package learn.recordcollection.data;
 
 import learn.recordcollection.models.Condition;
 import learn.recordcollection.models.Record;
-<<<<<<< HEAD
 import org.springframework.stereotype.Repository;
 import org.springframework.beans.factory.annotation.Value;
-=======
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Repository;
->>>>>>> eb983f0c1b1af51da999e65215d750aaa7907d11
-
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
