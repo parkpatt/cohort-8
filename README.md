@@ -44,13 +44,13 @@
 
 ### Week 4
 
-* Group A - Irina
+* Group A - Corbin
 * Group B - Brendan
 
 ### Week 5
 
-* Group A - Brendan
-* Group B - Irina
+* Group A - Corbin
+* Group B - Irina & Brendan
 
 ### Week 6
 
