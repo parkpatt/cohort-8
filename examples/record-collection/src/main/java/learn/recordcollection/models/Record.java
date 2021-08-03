@@ -56,4 +56,31 @@ public class Record {
     public void setValue(double value) {
         this.value = value;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Record record = (Record) o;
+
+        if (recordId != record.recordId) return false;
+        if (Double.compare(record.value, value) != 0) return false;
+        if (artist != null ? !artist.equals(record.artist) : record.artist != null) return false;
+        if (title != null ? !title.equals(record.title) : record.title != null) return false;
+        return condition == record.condition;
+    }
+
+    @Override
+    public int hashCode() {
+        int result;
+        long temp;
+        result = recordId;
+        result = 31 * result + (artist != null ? artist.hashCode() : 0);
+        result = 31 * result + (title != null ? title.hashCode() : 0);
+        result = 31 * result + (condition != null ? condition.hashCode() : 0);
+        temp = Double.doubleToLongBits(value);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        return result;
+    }
 }

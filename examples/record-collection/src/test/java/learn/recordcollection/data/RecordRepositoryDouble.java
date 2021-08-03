@@ -27,6 +27,11 @@ public class RecordRepositoryDouble implements RecordRepository {
     }
 
     @Override
+    public Record findById(int recordId) throws DataAccessException {
+        return null;
+    }
+
+    @Override
     public Record add(Record record) throws DataAccessException {
         return record;
     }

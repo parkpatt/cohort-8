@@ -9,6 +9,8 @@ public interface RecordRepository {
 
     List<Record> findByArtist(String artist) throws DataAccessException;
 
+    Record findById(int recordId) throws DataAccessException;
+
     Record add(Record record) throws DataAccessException;
 
     boolean update(Record record) throws DataAccessException;

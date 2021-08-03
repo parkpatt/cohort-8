@@ -9,7 +9,6 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Repository
 public class RecordFileRepository implements RecordRepository {
 
     private final String DELIMITER = ",";
@@ -48,6 +47,11 @@ public class RecordFileRepository implements RecordRepository {
             }
         }
         return result;
+    }
+
+    @Override
+    public Record findById(int recordId) throws DataAccessException {
+        return null;
     }
 
     @Override
