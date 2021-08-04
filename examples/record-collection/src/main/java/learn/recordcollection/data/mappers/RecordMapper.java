@@ -17,6 +17,7 @@ public class RecordMapper implements RowMapper<Record> {
         record.setArtist(resultSet.getString("artist"));
         record.setTitle(resultSet.getString("title"));
         record.setValue(resultSet.getDouble("value"));
+        record.setCondition(Condition.valueOf(resultSet.getString("condition")));
         return record;
     }
 }

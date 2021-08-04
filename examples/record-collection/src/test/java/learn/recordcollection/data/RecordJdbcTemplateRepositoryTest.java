@@ -1,5 +1,6 @@
 package learn.recordcollection.data;
 
+import learn.recordcollection.models.Condition;
 import learn.recordcollection.models.Record;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -67,6 +68,7 @@ class RecordJdbcTemplateRepositoryTest {
         Record record = new Record();
         record.setArtist("Kermit the Frog");
         record.setTitle("Kermit Sings the Blues");
+        record.setCondition(Condition.GOOD);
         record.setValue(2000.00);
 
         Record actual = repository.add(record);

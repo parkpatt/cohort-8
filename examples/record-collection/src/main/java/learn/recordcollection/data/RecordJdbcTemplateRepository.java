@@ -18,14 +18,22 @@ public class RecordJdbcTemplateRepository implements RecordRepository {
     private final JdbcTemplate jdbcTemplate;
     private final RecordMapper mapper = new RecordMapper();
 
+    private final String SELECT = "select " +
+                "r.record_id, " +
+                "r.artist, " +
+                "r.title, " +
+                "r.`value`, " +
+                "c.`description` as `condition` " +
+            "from record r " +
+            "inner join `condition` c on c.condition_id = r.condition_id ";
+
     public RecordJdbcTemplateRepository(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 
     @Override
     public List<Record> findAll() throws DataAccessException {
-        final String sql = "select record_id, artist, title, `value` from record;";
-        return jdbcTemplate.query(sql, mapper);
+        return jdbcTemplate.query(SELECT + ";", mapper);
     }
 
     @Override
@@ -35,8 +43,8 @@ public class RecordJdbcTemplateRepository implements RecordRepository {
 
     @Override
     public Record findById(int recordId) throws DataAccessException {
-        final String sql = "select record_id, artist, title, `value` from record" +
-                " where record_id = ?;";
+        final String sql = SELECT +
+                "where r.record_id = ?;";
         return jdbcTemplate.query(sql, mapper, recordId)
                 .stream()
                 .findFirst()
@@ -50,14 +58,15 @@ public class RecordJdbcTemplateRepository implements RecordRepository {
                         " title," +
                         " condition_id," +
                         " `value`" +
-                    " ) values (?, ?, 2, ?);";
+                    " ) values (?, ?, ?, ?);";
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
         int rowsAffected = jdbcTemplate.update(connection -> {
             PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, record.getArtist());
             ps.setString(2, record.getTitle());
-            ps.setDouble(3, record.getValue());
+            ps.setInt(3, record.getCondition().getId());
+            ps.setDouble(4, record.getValue());
             return ps;
         }, keyHolder);
 
