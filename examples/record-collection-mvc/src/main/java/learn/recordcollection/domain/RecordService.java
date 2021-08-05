@@ -32,7 +32,7 @@ public class RecordService {
             return result;
         }
         if (record.getRecordId() > 0) {
-            result.addMessage("Cannot add existing record.");
+            result.addMessage("Cannot add existing record.", ResultType.INVALID);
             return result;
         }
         result.setPayload(repository.add(record));
@@ -45,11 +45,12 @@ public class RecordService {
             return result;
         }
         if (record.getRecordId() <= 0) {
-            result.addMessage("Record id is required.");
+            result.addMessage("Record id is required.", ResultType.INVALID);
             return result;
         }
         if (!repository.update(record)) {
-            result.addMessage(String.format("Record id %s was not found.", record.getRecordId()));
+            result.addMessage(String.format("Record id %s was not found.", record.getRecordId()),
+                    ResultType.NOT_FOUND);
         }
         return result;
     }
@@ -57,7 +58,7 @@ public class RecordService {
     public Result<Void> deleteById(int recordId) {
         Result<Void> result = new Result<>();
         if (!repository.deleteById(recordId)) {
-            result.addMessage(String.format("Record id %s was not found.", recordId));
+            result.addMessage(String.format("Record id %s was not found.", recordId), ResultType.NOT_FOUND);
         }
         return result;
     }
@@ -65,17 +66,17 @@ public class RecordService {
     private Result<Record> validate(Record record) {
         Result<Record> result = new Result<>();
         if (record == null) {
-            result.addMessage("Record is required.");
+            result.addMessage("Record is required.", ResultType.INVALID);
             return result;
         }
         if (record.getArtist() == null || record.getArtist().isBlank()) {
-            result.addMessage("Artist is required.");
+            result.addMessage("Artist is required.", ResultType.INVALID);
         }
         if (record.getTitle() == null || record.getTitle().isBlank()) {
-            result.addMessage("Title is required.");
+            result.addMessage("Title is required.", ResultType.INVALID);
         }
         if (record.getValue() < MIN_VALUE || record.getValue() > MAX_VALUE) {
-            result.addMessage("Value should be between $0-10,000,000.");
+            result.addMessage("Value should be between $0-10,000,000.", ResultType.INVALID);
         }
         return result;
     }

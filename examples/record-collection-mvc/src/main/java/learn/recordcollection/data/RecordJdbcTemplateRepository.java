@@ -45,6 +45,7 @@ public class RecordJdbcTemplateRepository implements RecordRepository {
     @Override
     public Record findById(int recordId) {
         final String sql = String.format("%s where r.record_id = ?;", SELECT);
+
         return jdbcTemplate.query(sql, mapper, recordId)
                 .stream()
                 .findFirst()
