@@ -31,19 +31,19 @@ public class RecordJdbcTemplateRepository implements RecordRepository {
     }
 
     @Override
-    public List<Record> findAll() throws DataAccessException {
+    public List<Record> findAll() {
         final String sql = String.format("%s;", SELECT);
         return jdbcTemplate.query(sql, mapper);
     }
 
     @Override
-    public List<Record> findByArtist(String artist) throws DataAccessException {
+    public List<Record> findByArtist(String artist) {
         final String sql = String.format("%s where r.artist = ?;", SELECT);
         return jdbcTemplate.query(sql, mapper, artist);
     }
 
     @Override
-    public Record findById(int recordId) throws DataAccessException {
+    public Record findById(int recordId) {
         final String sql = String.format("%s where r.record_id = ?;", SELECT);
         return jdbcTemplate.query(sql, mapper, recordId)
                 .stream()
@@ -52,7 +52,7 @@ public class RecordJdbcTemplateRepository implements RecordRepository {
     }
 
     @Override
-    public Record add(Record record) throws DataAccessException {
+    public Record add(Record record) {
         final String sql = "insert into record (" +
                 " artist," +
                 " title," +
@@ -79,7 +79,7 @@ public class RecordJdbcTemplateRepository implements RecordRepository {
     }
 
     @Override
-    public boolean update(Record record) throws DataAccessException {
+    public boolean update(Record record) {
         final String sql = "update record set " +
                 "artist = ?, " +
                 "title = ?, " +
@@ -98,7 +98,7 @@ public class RecordJdbcTemplateRepository implements RecordRepository {
     }
 
     @Override
-    public boolean deleteById(int recordId) throws DataAccessException {
+    public boolean deleteById(int recordId) {
         final String sql = "delete from record where record_id = ?;";
         return jdbcTemplate.update(sql, recordId) > 0;
     }

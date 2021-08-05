@@ -29,7 +29,7 @@ class RecordJdbcTemplateRepositoryTest {
     }
 
     @Test
-    void shouldFindAll() throws DataAccessException {
+    void shouldFindAll() {
         List<Record> actual = repository.findAll();
 
         assertTrue(actual.size() >= 3);
@@ -48,7 +48,7 @@ class RecordJdbcTemplateRepositoryTest {
     }
 
     @Test
-    void shouldFindById() throws DataAccessException {
+    void shouldFindById() {
         Record actual = repository.findById(1);
 
         assertEquals(1, actual.getRecordId());
@@ -57,14 +57,14 @@ class RecordJdbcTemplateRepositoryTest {
     }
 
     @Test
-    void shouldNotFindMissingById() throws DataAccessException {
+    void shouldNotFindMissingById() {
         Record actual = repository.findById(99);
 
         assertNull(actual);
     }
 
     @Test
-    void shouldAddRecord() throws DataAccessException {
+    void shouldAddRecord() {
         Record record = new Record();
         record.setArtist("Kermit the Frog");
         record.setTitle("Kermit Sings the Blues");
@@ -79,7 +79,7 @@ class RecordJdbcTemplateRepositoryTest {
     }
 
     @Test
-    void shouldUpdate() throws DataAccessException {
+    void shouldUpdate() {
         Record record = new Record();
         record.setRecordId(2);
         record.setArtist("Madhero");
@@ -91,7 +91,7 @@ class RecordJdbcTemplateRepositoryTest {
     }
 
     @Test
-    void shouldNotUpdateMissing() throws DataAccessException {
+    void shouldNotUpdateMissing() {
         Record record = new Record();
         record.setRecordId(106);
         record.setArtist("Cats");
@@ -103,12 +103,12 @@ class RecordJdbcTemplateRepositoryTest {
     }
 
     @Test
-    void shouldDeleteById() throws DataAccessException {
+    void shouldDeleteById() {
         assertTrue(repository.deleteById(4));
     }
 
     @Test
-    void shouldNotDeleteMissing() throws DataAccessException {
+    void shouldNotDeleteMissing() {
         assertFalse(repository.deleteById(106));
     }
 }
