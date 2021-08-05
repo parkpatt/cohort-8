@@ -9,7 +9,7 @@ import java.util.List;
 public class RecordRepositoryDouble implements RecordRepository {
 
     @Override
-    public List<Record> findAll() throws DataAccessException {
+    public List<Record> findAll() {
         return Arrays.asList(
                 new Record(1, "Prince", "Sign `O` the Times", Condition.NEAR_MINT, 45),
                 new Record(2, "Bob Dylan", "Blood on the Tracks", Condition.GOOD, 15),
@@ -19,7 +19,7 @@ public class RecordRepositoryDouble implements RecordRepository {
     }
 
     @Override
-    public List<Record> findByArtist(String artist) throws DataAccessException {
+    public List<Record> findByArtist(String artist) {
         return Arrays.asList(
             new Record(1, "Prince", "Sign `O` the Times", Condition.NEAR_MINT, 45),
             new Record(4, "Prince", "1999", Condition.VERY_GOOD, 23)
@@ -27,22 +27,22 @@ public class RecordRepositoryDouble implements RecordRepository {
     }
 
     @Override
-    public Record findById(int recordId) throws DataAccessException {
+    public Record findById(int recordId) {
         return null;
     }
 
     @Override
-    public Record add(Record record) throws DataAccessException {
+    public Record add(Record record) {
         return record;
     }
 
     @Override
-    public boolean update(Record record) throws DataAccessException {
+    public boolean update(Record record) {
         return record.getRecordId() == 11;
     }
 
     @Override
-    public boolean deleteById(int recordId) throws DataAccessException {
+    public boolean deleteById(int recordId) {
         return recordId == 11;
     }
 }
