@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Friday HTML/CSS/JavaScript Warmup</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+    <h1>Friday HTML/CSS/JavaScript Warmup</h1>
+    <section>
+        <h2>Event: click</h2>
+        <input type="text" id="clickLog">
+        <button>Click Me. I'm button A.</button>
+        <button>Click Me. I'm button B.</button>
+    </section>
+
+    <section>
+        <h2>Event: focus and blur</h2>
+        <input type="text" class="focus-blur" placeholder="Put your cursor here. I'm input A.">
+        <input type="text" class="focus-blur" placeholder="Put your cursor here. I'm input B.">
+
+        <h3>Log</h3>
+        <div id="focusAndBlurLog"></div>
+    </section>
+
+    <section>
+        <h2>Event: change</h2>
+
+
+        <h3>Checkboxes</h3>
+        <label for="chkA">Checkbox A</label>
+        <input id="chkA" type="checkbox">
+        <label for="chkB">Checkbox B</label>
+        <input id="chkB" type="checkbox">
+
+        <h3>Select</h3>
+        <select id="selectA">
+            <option>Hydrogen</option>
+            <option selected>Helium</option>
+            <option>Lithium</option>
+        </select>
+
+        <select id="selectB">
+            <option>Peony</option>
+            <option>Zinnia</option>
+            <option selected>Dahlia</option>
+        </select>
+
+        <h3>Log</h3>
+        <div id="changeLog"></div>
+    </section>
+
+
+    <script src="index.js"></script>
+</body>
+
+</html>

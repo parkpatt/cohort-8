@@ -1,0 +1,20 @@
+body {
+    margin: 1rem 1rem;
+    max-width: 70em;
+    line-height: 1.6;
+    font-size: 18px;
+    color: #444;
+    padding: 0 10px;
+}
+
+h1,
+h2,
+h3 {
+    line-height: 1.2
+}
+
+input[type=text] {
+    width: 100%;
+    padding: .375rem .75rem;
+    line-height: 1.5;
+}
