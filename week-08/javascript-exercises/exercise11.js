@@ -21,6 +21,8 @@ const f2 = function () {
     ["snow", "sun", "ice fishing"].forEach(console.log);
 };
 
+const runFunction = (func) => func();
+
 runFunction(f1);
 runFunction(f2);
 runFunction(() => console.log("firecracker"));

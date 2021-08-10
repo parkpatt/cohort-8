@@ -56,5 +56,3 @@ const exampleNArity = (a, b, ...theRest) => {
 const stringFormat = (str, ...rest) => {
     '%s'
 } 
-
-

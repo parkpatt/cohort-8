@@ -8,6 +8,16 @@ const assert = require("assert");
 // in each parameter.
 // Return the result.
 
+function mergeAndRemoveDuplicates(arr1, arr2) {
+    const merged = [...arr1, ...arr2];
+    const result = merged.reduce((acc, current) => {
+        if (!acc.includes(current)) {
+            acc.push(current);
+        }
+        return acc;
+    }, []);
+    return result;
+} 
 
 // Execute this exercise.
 // If you see the message "success!", all tests pass.
