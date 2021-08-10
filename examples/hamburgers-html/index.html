@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="styles.css" rel="stylesheet">
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <title>Hamburgers</title>
+</head>
+<body>
+    <h1>Hamburgers</h1>
+    <form>
+        <div>
+            <label for="name">Name</label>
+            <input type="text" name="name" id="burgerName" />
+        </div>
+        <div>
+            <label for="calories">Calories</label>
+            <input type="number" name="calories" id="calories" min="0" value="0" />
+        </div>
+        <button type="submit" class="btn btn-primary">Save</button>
+    </form>
+    <div id="burgerContainer">     
+    </div>
+    <div id="burgerTableContainer">     
+    </div>
+    <script src="code.js"></script>
+</body>
+</html>

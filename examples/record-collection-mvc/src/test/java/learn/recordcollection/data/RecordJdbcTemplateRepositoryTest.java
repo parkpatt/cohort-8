@@ -6,14 +6,19 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+<<<<<<< HEAD
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+=======
+import org.springframework.boot.test.context.SpringBootTest;
+>>>>>>> 8126dd3ffffe2d21fd69b85f2a9954c24944cf59
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
 class RecordJdbcTemplateRepositoryTest {
 
     @Autowired
@@ -22,6 +27,7 @@ class RecordJdbcTemplateRepositoryTest {
     @Autowired
     JdbcTemplate jdbcTemplate;
 
+<<<<<<< HEAD
     static boolean hasSetup = false;
 
     @BeforeEach
@@ -29,6 +35,15 @@ class RecordJdbcTemplateRepositoryTest {
         if (!hasSetup){
             hasSetup = true;
             jdbcTemplate.update("call set_known_good_state");
+=======
+    static boolean hasSetUp = false;
+
+    @BeforeEach
+    void setup() {
+        if (!hasSetUp) {
+            hasSetUp = true;
+            jdbcTemplate.update("call set_known_good_state();");
+>>>>>>> 8126dd3ffffe2d21fd69b85f2a9954c24944cf59
         }
     }
 

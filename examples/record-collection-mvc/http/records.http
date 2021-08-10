@@ -1,0 +1,15 @@
+
+
+GET http://localhost:8080/records HTTP/1.1
+
+###
+
+POST http://localhost:8080/records HTTP/1.1
+Content-Type: application/json
+
+{
+    "artist": "Kermit the Frog",
+    "title": "Magical Thinking",
+    "condition": "GOOD",
+    "value": 25.00
+}

@@ -1,7 +1,6 @@
 package learn.recordcollection.domain;
 
 import learn.recordcollection.data.RecordRepository;
-import learn.recordcollection.data.RecordRepositoryDouble;
 import learn.recordcollection.models.Condition;
 import learn.recordcollection.models.Record;
 import org.junit.jupiter.api.Test;
@@ -9,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -27,6 +27,14 @@ class RecordServiceTest {
 
     @Test
     void shouldFindAll() {
+
+        when(repository.findAll()).thenReturn(Arrays.asList(
+                new Record(1, "Prince", "Sign `O` the Times", Condition.NEAR_MINT, 45),
+                new Record(2, "Bob Dylan", "Blood on the Tracks", Condition.GOOD, 15),
+                new Record(3, "Madvillain", "Madvillainy", Condition.NEAR_MINT, 30),
+                new Record(4, "Prince", "1999", Condition.VERY_GOOD, 23)
+        ));
+
         List<Record> actual = service.findAll();
 
         assertEquals(4, actual.size());
@@ -35,6 +43,12 @@ class RecordServiceTest {
 
     @Test
     void shouldFindByArtist() {
+
+        when(repository.findByArtist(any())).thenReturn(Arrays.asList(
+                new Record(1, "Prince", "Sign `O` the Times", Condition.NEAR_MINT, 45),
+                new Record(4, "Prince", "1999", Condition.VERY_GOOD, 23)
+        ));
+
         List<Record> actual = service.findByArtist("Prince");
 
         assertEquals(2, actual.size());
@@ -44,7 +58,12 @@ class RecordServiceTest {
     void shouldAddRecord() {
         Record record = new Record(0, "Bon Iver", "For Emma, Forever Ago", Condition.FAIR, 20.50);
 
+<<<<<<< HEAD
         when(repository.add(record)).thenReturn(record);
+=======
+        when(repository.add(record))
+                .thenReturn(record);
+>>>>>>> 8126dd3ffffe2d21fd69b85f2a9954c24944cf59
 
         Result<Record> actual = service.add(record);
 
@@ -57,7 +76,10 @@ class RecordServiceTest {
     void shouldNotAddNullRecord() {
         Result<Record> actual = service.add(null);
 
+<<<<<<< HEAD
         assertFalse(actual.isSuccess());
+=======
+>>>>>>> 8126dd3ffffe2d21fd69b85f2a9954c24944cf59
         assertEquals(ResultType.INVALID, actual.getResultType());
         assertNull(actual.getPayload());
         assertEquals(1, actual.getMessages().size());
@@ -138,6 +160,9 @@ class RecordServiceTest {
 
     @Test
     void shouldUpdate() {
+
+        when(repository.update(any())).thenReturn(true);
+
         Record record = new Record(11, "Test Artist", "Test Title", Condition.FAIR, 99);
 
         Result<Record> actual = service.update(record);
@@ -172,6 +197,8 @@ class RecordServiceTest {
 
     @Test
     void shouldDelete() {
+        when(repository.deleteById(anyInt())).thenReturn(true);
+
         Result<Void> actual = service.deleteById(11);
 
         when(repository.deleteById(anyInt())).thenReturn(true);
@@ -182,6 +209,7 @@ class RecordServiceTest {
 
     @Test
     void shouldNotDeleteNotExisting() {
+        //when(repository.deleteById(anyInt())).thenReturn(false);
         Result<Void> actual = service.deleteById(99);
 
         assertFalse(actual.isSuccess());

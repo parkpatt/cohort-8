@@ -1,13 +1,12 @@
 package learn.recordcollection.domain;
 
-import learn.recordcollection.models.Record;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class Result<T> {
     private final ArrayList<String> messages = new ArrayList<>();
     private T payload;
+    private ResultType resultType = ResultType.SUCCESS;
 
     private ResultType resultType = ResultType.SUCCESS;
 

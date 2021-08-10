@@ -49,7 +49,9 @@ public class RecordService {
             return result;
         }
         if (!repository.update(record)) {
-            result.addMessage(String.format("Record id %s was not found.", record.getRecordId()), ResultType.NOT_FOUND);
+            result.addMessage(String.format("Record id %s was not found.", record.getRecordId()),
+                    ResultType.NOT_FOUND);
+
         }
         return result;
     }
