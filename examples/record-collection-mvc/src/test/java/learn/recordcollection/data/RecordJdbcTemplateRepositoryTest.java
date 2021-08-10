@@ -3,7 +3,9 @@ package learn.recordcollection.data;
 import learn.recordcollection.models.Condition;
 import learn.recordcollection.models.Record;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -14,18 +16,20 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class RecordJdbcTemplateRepositoryTest {
 
+    @Autowired
     RecordJdbcTemplateRepository repository;
 
-    public RecordJdbcTemplateRepositoryTest() {
-        ApplicationContext context = new AnnotationConfigApplicationContext(TestDbConfig.class);
-        repository = context.getBean(RecordJdbcTemplateRepository.class);
-    }
+    @Autowired
+    JdbcTemplate jdbcTemplate;
 
-    @BeforeAll
-    static void oneTimeSetup() {
-        ApplicationContext context = new AnnotationConfigApplicationContext(TestDbConfig.class);
-        JdbcTemplate jdbcTemplate = context.getBean(JdbcTemplate.class);
-        jdbcTemplate.update("call set_known_good_state();");
+    static boolean hasSetup = false;
+
+    @BeforeEach
+    void setup() {
+        if (!hasSetup){
+            hasSetup = true;
+            jdbcTemplate.update("call set_known_good_state");
+        }
     }
 
     @Test

@@ -120,4 +120,9 @@ values
     (9, 9)
 ;
 
+CREATE TABLE shirts (
+    name VARCHAR(40),
+    size ENUM('x-small', 'small', 'medium', 'large', 'x-large')
+);
+
 -- TODO: practice updates and deletes 

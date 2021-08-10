@@ -5,15 +5,25 @@ import learn.recordcollection.data.RecordRepositoryDouble;
 import learn.recordcollection.models.Condition;
 import learn.recordcollection.models.Record;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.Mockito.when;
 
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
 class RecordServiceTest {
 
-    RecordRepository repository = new RecordRepositoryDouble();
-    RecordService service = new RecordService(repository);
+    @MockBean
+    RecordRepository repository;
+
+    @Autowired
+    RecordService service;
 
     @Test
     void shouldFindAll() {
@@ -34,6 +44,8 @@ class RecordServiceTest {
     void shouldAddRecord() {
         Record record = new Record(0, "Bon Iver", "For Emma, Forever Ago", Condition.FAIR, 20.50);
 
+        when(repository.add(record)).thenReturn(record);
+
         Result<Record> actual = service.add(record);
 
         assertTrue(actual.isSuccess());
@@ -46,6 +58,7 @@ class RecordServiceTest {
         Result<Record> actual = service.add(null);
 
         assertFalse(actual.isSuccess());
+        assertEquals(ResultType.INVALID, actual.getResultType());
         assertNull(actual.getPayload());
         assertEquals(1, actual.getMessages().size());
         assertEquals("Record is required.", actual.getMessages().get(0));
@@ -160,6 +173,8 @@ class RecordServiceTest {
     @Test
     void shouldDelete() {
         Result<Void> actual = service.deleteById(11);
+
+        when(repository.deleteById(anyInt())).thenReturn(true);
 
         assertTrue(actual.isSuccess());
         assertEquals(0, actual.getMessages().size());
