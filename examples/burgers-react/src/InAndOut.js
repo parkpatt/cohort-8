@@ -10,7 +10,7 @@ function InAndOut() {
     const [inOut, setInOut] = useState(InOut.OUT);
 
     const inOutChange = () => {
-        const newVal = inOut == InOut.IN
+        const newVal = inOut === InOut.IN
             ? InOut.OUT
             : InOut.IN;
 
