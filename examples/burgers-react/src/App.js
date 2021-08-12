@@ -4,7 +4,7 @@ import Burger from './Burger';
 
 function App() {
 
-    const startingBurgers = [
+  const startingBurgers = [
     {
       id: 1,
       name: "California",
