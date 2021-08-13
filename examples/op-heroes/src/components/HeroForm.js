@@ -1,15 +1,58 @@
-import { useState } from 'react';
-import initialAbilities from '../data/abilities';
+import { useState, useEffect } from 'react';
 
-function HeroForm({ currentHero, saveHero, cancel }) {
+const DEFAULT_HERO = { 
+  id: 0, 
+  alias: "", 
+  fullName: "", 
+  faction: "" ,
+  abilities: []
+};
 
-  const [hero, setHero] = useState({ ...currentHero });
+function HeroForm({ heroId, saveHero, cancel }) {
+
+  const [hero, setHero] = useState(DEFAULT_HERO);
+  const [abilities, setAbilities] = useState([]);
+
+  useEffect(() => {
+    const fetchAbilities = async () => {
+      try {
+        const response = await fetch("http://localhost:8080/api/ability");
+        if (response.status !== 200) {
+          return Promise.reject(new Error("Fetch abilities failed."));
+        }
+        const json = await response.json();
+        setAbilities(json);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchAbilities();
+  }, []);
+
+  useEffect(() => {
+    const fetchHero = async () => {
+      try {
+        const response = await fetch(`http://localhost:8080/api/hero/${heroId}`);
+        if (response.status !== 200) {
+          return Promise.reject(new Error(`Fetch hero failed, heroId: ${heroId}.`));
+        }
+        const json = await response.json();
+        setHero(json);
+        console.log(json);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    if (heroId !== undefined) {
+      fetchHero();
+    }
+  }, [heroId]);
 
   const onChange = (evt) => {
     const nextHero = {...hero};
     if (evt.target.name === "abilities") {
       if (evt.target.checked) {
-        const ability = initialAbilities.find(a => a.id === Number(evt.target.value));
+        const ability = abilities.find(a => a.id === Number(evt.target.value));
         if (ability) {
           nextHero.abilities.push(ability);
         }
@@ -46,7 +89,7 @@ function HeroForm({ currentHero, saveHero, cancel }) {
       </div>
       <div className="mb-3">
         <h4 className="mb-3">Abilities</h4>
-        {initialAbilities.map(a => 
+        {abilities.map(a => 
           <div className="form-check form-switch" key={a.id}>            
             <input type="checkbox" className="form-check-input" name="abilities" id={`${a.id}-${a.name}`} value={a.id} 
               checked={hero.abilities.find(ha => ha.id === a.id) != null} onChange={onChange} />

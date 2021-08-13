@@ -16,26 +16,26 @@ CRUD for OP Characters
 
 ## List View (R)
 
-  * |  name    |   faction   |    edit/delete
+* |  name    |   faction   |    edit/delete
 
 ### State
   
-  * List of heroes
-  * Current view
-  * Current hero?
+* List of heroes
+* Current view
+* Current hero?
 
 ### Events
 
-  * create
-  * update
-  * delete
-  * change view
+* create
+* update
+* delete
+* change view
   
 ## Form (C/U)
 
-  * Create new
-  * Update existing
+* Create new
+* Update existing
 
 ## Confirm Delete (D)
 
-  * Ask user to confirm
+* Ask user to confirm
