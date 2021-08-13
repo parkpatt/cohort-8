@@ -1,0 +1,8 @@
+@url = https://pokeapi.co/api/v2/pokemon
+
+
+GET {{url}} HTTP/1.1
+
+###
+
+GET {{url}}/359 HTTP/1.1
