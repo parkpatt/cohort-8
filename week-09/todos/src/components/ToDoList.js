@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-
-const url = "http://localhost:8080/api/todos";
+import { findAll, deleteById } from '../services/todos';
 
 function ToDoList() {
 
@@ -9,55 +8,17 @@ function ToDoList() {
 
   const history = useHistory();
 
-  const fetchAll = async () => {
-
-    const token = localStorage.getItem('jwt_token');
-    if (!token) {
-      history.push("/login");
-    }
-
-    const init = {
-      headers: {
-        "Authorization": `Bearer ${token}`
-      }
-    }
-
-    return fetch(url, init)
-      .then(r => {
-        if (r.status === 200) {
-          return r.json();
-        }
-        return Promise.reject("Not 200 OK");
-      })
-      .then(setTodos);
-  };
-
   useEffect(() => {
-    fetchAll()
-      .catch(console.error)
+    findAll()
+      .then(setTodos)
+      .catch(console.error);
   }, [history]);
 
   const deleteToDo = (evt) => {
-    const theTodo = todos.find(t => t.id === parseInt(evt.target.value), 10);
-
-    const token = localStorage.getItem('jwt_token');
-    if (!token) {
-      history.push("/login");
-    }
-    
-    const init = {
-      method: "DELETE",
-      headers: {
-        "Authorization": `Bearer ${token}`
-      }
-    }
-
-    fetch(`${url}/${theTodo.id}`, init)
-      .then(r => {
-        if (r.status === 204) {
-          return fetchAll();
-        }
-        return Promise.reject("Not 204 No Content");
+    deleteById(parseInt(evt.target.value, 10))
+      .then(() => {
+        findAll()
+          .then(setTodos);
       })
       .catch(console.error);
   }
@@ -74,7 +35,7 @@ function ToDoList() {
           <td>{t.description}</td>
           <td>
             <button className="red darken-2 btn" value={t.id} onClick={deleteToDo}>
-              <i className="material-icons">delete_forever</i>
+              <i className="material-icons" value={t.id}>delete_forever</i>
             </button>
           </td>
           <td>

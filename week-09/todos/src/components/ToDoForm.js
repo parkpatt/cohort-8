@@ -1,12 +1,11 @@
 import { useState, useEffect } from 'react';
 import { useHistory, useParams } from 'react-router';
+import { findById, save } from '../services/todos';
 
 const EMPTY_TODO = {
   id: 0,
   description: ''
 };
-
-const url = "http://localhost:8080/api/todos";
 
 function ToDoForm() {
 
@@ -17,24 +16,7 @@ function ToDoForm() {
 
   useEffect(() => {
     if (id) {
-      const token = localStorage.getItem('jwt_token');
-      if (!token) {
-        history.push("/login");
-      }
-
-      const init = {
-        headers: {
-          "Authorization": `Bearer ${token}`
-        }
-      }
-
-      fetch(`${url}/${id}`, init)
-        .then(r => {
-          if (r.status === 200) {
-            return r.json();
-          }
-          return Promise.reject("Not 200 OK");
-        })
+      findById(id)
         .then(setTodo)
         .catch(console.error);
     }
@@ -47,42 +29,11 @@ function ToDoForm() {
   const onSubmit = (evt) => {
     evt.preventDefault();
 
-    const token = localStorage.getItem('jwt_token');
-    if (!token) {
-      history.push("/login");
-    }
-
-    const init = {
-      headers: {
-        "Content-Type": "application/json",
-        "Accept": "application/json",
-        "Authorization": `Bearer ${token}`
-      },
-      body: JSON.stringify(todo)
-    }
-
-    if (todo.id === 0) {
-      init.method = "POST";
-      fetch(url, init)
-        .then(r => {
-          if (r.status === 201) {
-            return history.push("/");
-          }
-          return Promise.reject("Not 201 Created");
-        })
-        .catch(console.error);
-    } else {
-      init.method = "PUT";
-      fetch(`${url}/${todo.id}`, init)
-        .then(r => {
-          if (r.status === 204) {
-            return history.push("/");
-          }
-          return Promise.reject("Not 204 No Content");
-        })
-        .catch(console.error);
-    }
-    history.push("/");
+    save(todo)
+      .then(() => {
+        return history.push("/");
+      })
+      .catch(console.error);
   }
 
   return <div className="row">
@@ -90,7 +41,7 @@ function ToDoForm() {
       <div className="row">
         <div className="input-field col s12">
           <input id="description" type="text" value={todo.description} onChange={onChange} />
-          <label htmlFor="description">Description</label>
+          <label htmlFor="description" className="active">Description</label>
         </div>
       </div>
       <div className="row">
