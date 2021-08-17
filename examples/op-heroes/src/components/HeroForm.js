@@ -1,4 +1,6 @@
 import { useState, useEffect } from 'react';
+import { Link, useParams, useHistory } from 'react-router-dom';
+import { fetchHero, saveHero } from '../api/heroApi';
 
 const DEFAULT_HERO = { 
   id: 0, 
@@ -8,10 +10,13 @@ const DEFAULT_HERO = {
   abilities: []
 };
 
-function HeroForm({ heroId, saveHero, cancel }) {
+function HeroForm() {
 
   const [hero, setHero] = useState(DEFAULT_HERO);
   const [abilities, setAbilities] = useState([]);
+
+  const { heroId } = useParams();
+  const history = useHistory();
 
   useEffect(() => {
     const fetchAbilities = async () => {
@@ -30,21 +35,10 @@ function HeroForm({ heroId, saveHero, cancel }) {
   }, []);
 
   useEffect(() => {
-    const fetchHero = async () => {
-      try {
-        const response = await fetch(`http://localhost:8080/api/hero/${heroId}`);
-        if (response.status !== 200) {
-          return Promise.reject(new Error(`Fetch hero failed, heroId: ${heroId}.`));
-        }
-        const json = await response.json();
-        setHero(json);
-        console.log(json);
-      } catch (error) {
-        console.log(error);
-      }
-    };
     if (heroId !== undefined) {
-      fetchHero();
+      fetchHero(heroId)
+        .then(json => setHero(json))
+        .catch(console.error);
     }
   }, [heroId]);
 
@@ -65,9 +59,14 @@ function HeroForm({ heroId, saveHero, cancel }) {
     setHero(nextHero);
   };
 
-  const onSubmit = (evt) => {
+  const onSubmit = async (evt) => {
     evt.preventDefault();
-    saveHero(hero);
+
+    saveHero(hero)
+      .then(() => history.push("/"))
+      .catch(err => {
+        console.log(err);
+      });
   };
 
   return <div className="container">
@@ -99,7 +98,7 @@ function HeroForm({ heroId, saveHero, cancel }) {
       </div>
       <div className="mb-3">
         <button type="submit" className="btn btn-primary me-1">Save</button>
-        <button type="button" className="btn btn-secondary mx-1" onClick={cancel}>Cancel</button>
+        <Link to="/" className="btn btn-secondary mx-1">Cancel</Link>
       </div>
     </form>
   </div>

@@ -1,4 +1,6 @@
-function HeroRow({ hero, onDelete, onEdit }) {
+import { Link } from 'react-router-dom';
+
+function HeroRow({ hero }) {
   return <div className="row mb-2">
     <div className="col">
       {hero.alias}
@@ -13,8 +15,8 @@ function HeroRow({ hero, onDelete, onEdit }) {
       {hero.abilities.map(a => a.name).join(", ")}
     </div>
     <div className="col">
-      <button type="button" className="btn btn-danger mx-1" value={hero.id} onClick={onDelete}>Delete</button>
-      <button type="button" className="btn btn-info mx-1" value={hero.id} onClick={onEdit}>Edit</button>
+      <Link to={`/delete/${hero.id}`} className="btn btn-danger mx-1">Delete</Link>
+      <Link to={`/edit/${hero.id}`} className="btn btn-info mx-1">Edit</Link>
     </div>
   </div>
 }

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 const url = "http://localhost:8080/api/todos";
 
@@ -7,25 +7,52 @@ function ToDoList() {
 
   const [todos, setTodos] = useState([]);
 
-  const fetchAll = () => {
-    return fetch(url)
+  const history = useHistory();
+
+  const fetchAll = async () => {
+
+    const token = localStorage.getItem('jwt_token');
+    if (!token) {
+      history.push("/login");
+    }
+
+    const init = {
+      headers: {
+        "Authorization": `Bearer ${token}`
+      }
+    }
+
+    return fetch(url, init)
       .then(r => {
         if (r.status === 200) {
           return r.json();
         }
         return Promise.reject("Not 200 OK");
       })
-      .then(setTodos)
+      .then(setTodos);
   };
 
   useEffect(() => {
     fetchAll()
       .catch(console.error)
-  }, []);
+  }, [history]);
 
   const deleteToDo = (evt) => {
     const theTodo = todos.find(t => t.id === parseInt(evt.target.value), 10);
-    fetch(`${url}/${theTodo.id}`, { method: "DELETE" })
+
+    const token = localStorage.getItem('jwt_token');
+    if (!token) {
+      history.push("/login");
+    }
+    
+    const init = {
+      method: "DELETE",
+      headers: {
+        "Authorization": `Bearer ${token}`
+      }
+    }
+
+    fetch(`${url}/${theTodo.id}`, init)
       .then(r => {
         if (r.status === 204) {
           return fetchAll();

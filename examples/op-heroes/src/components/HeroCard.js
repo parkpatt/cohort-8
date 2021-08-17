@@ -1,6 +1,6 @@
 import "../css/HeroCard.css";
 
-function HeroCard({ hero, onDelete, onEdit }) {
+function HeroCard({ hero }) {
   return <div className="card p-3">
     <img className="card-img-top" src={hero.imgUrl} alt={hero.alias} />
     <div className="card-body">

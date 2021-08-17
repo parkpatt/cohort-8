@@ -17,7 +17,18 @@ function ToDoForm() {
 
   useEffect(() => {
     if (id) {
-      fetch(`${url}/${id}`)
+      const token = localStorage.getItem('jwt_token');
+      if (!token) {
+        history.push("/login");
+      }
+
+      const init = {
+        headers: {
+          "Authorization": `Bearer ${token}`
+        }
+      }
+
+      fetch(`${url}/${id}`, init)
         .then(r => {
           if (r.status === 200) {
             return r.json();
@@ -27,7 +38,7 @@ function ToDoForm() {
         .then(setTodo)
         .catch(console.error);
     }
-  }, [id])
+  }, [id, history])
 
   const onChange = (evt) => {
     setTodo({...todo, description: evt.target.value });
@@ -36,10 +47,16 @@ function ToDoForm() {
   const onSubmit = (evt) => {
     evt.preventDefault();
 
+    const token = localStorage.getItem('jwt_token');
+    if (!token) {
+      history.push("/login");
+    }
+
     const init = {
       headers: {
         "Content-Type": "application/json",
-        "Accept": "application/json"
+        "Accept": "application/json",
+        "Authorization": `Bearer ${token}`
       },
       body: JSON.stringify(todo)
     }
