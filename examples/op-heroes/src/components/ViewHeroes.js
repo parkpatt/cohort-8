@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import HeroForm from './HeroForm';
 import ConfirmDelete from './ConfirmDelete';
 import HeroRow from './HeroRow';
+import HeroCard from './HeroCard';
 
 const url = "http://localhost:8080/api/hero";
 
@@ -23,7 +24,7 @@ function ViewHeroes() {
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   useEffect(() => {
     fetchAll();
@@ -94,15 +95,20 @@ function ViewHeroes() {
     return <ConfirmDelete hero={heroToDelete} confirm={onDeleteConfirmed} cancel={() => setCurrentView("list")} />
   }
 
-  return <div className="container">
-    <div className="row align-items-center">
-      <h2 className="col">Heroes</h2>
-      <div className="col  align-self-end">
-        <button type="button" className="btn btn-primary" onClick={onAdd}>Add</button>
+  return (<>
+    <div className="container">
+      <div className="row align-items-center">
+        <h2 className="col">Heroes</h2>
+        <div className="col  align-self-end">
+          <button type="button" className="btn btn-primary" onClick={onAdd}>Add</button>
+        </div>
       </div>
+      {heroes.map(h => <HeroRow key={h.id} hero={h} onEdit={onEdit} onDelete={onDelete} />)}
     </div>
-    {heroes.map(h => <HeroRow key={h.id} hero={h} onEdit={onEdit} onDelete={onDelete} />)}
-  </div>
+    <div className="card-columns">
+      {heroes.map(h => <HeroCard key={h.id} hero={h} onEdit={onEdit} onDelete={onDelete} />)}
+    </div>
+  </>)
 }
 
 export default ViewHeroes;
