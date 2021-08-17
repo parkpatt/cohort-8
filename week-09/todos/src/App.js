@@ -11,6 +11,7 @@ import jwtDecode from 'jwt-decode';
 function App() {
 
   const [user, setUser] = useState(null);
+  const [initialized, setInitialized] = useState(false);
 
   const onAuthenticated = (token) => {
     const payload = jwtDecode(token);
@@ -23,6 +24,7 @@ function App() {
     if (token) {
       onAuthenticated(token);
     }
+    setInitialized(true);
   }, [])
 
   const logout = () => {
@@ -34,6 +36,10 @@ function App() {
     user,
     onAuthenticated,
     logout
+  }
+
+  if (!initialized) {
+    return null;
   }
 
   return (
