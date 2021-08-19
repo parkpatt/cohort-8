@@ -27,7 +27,7 @@ function Nav() {
         {auth.user && <>
           <li>
             Hello,&nbsp;
-            {auth.user.username}
+            {auth.user}
             <button className="btn-flat" onClick={auth.logout}>Logout</button>
           </li>
         </>}

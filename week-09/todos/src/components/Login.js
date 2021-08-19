@@ -1,6 +1,7 @@
 import { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import LoginContext from '../contexts/LoginContext';
+import { authenticate } from '../services/auth';
 
 function Login() {
 
@@ -16,8 +17,20 @@ function Login() {
 
   const onSubmit = (evt) => {
     evt.preventDefault();
-    auth.login(credentials.username, credentials.password);
-    history.push("/");
+
+    authenticate(credentials)
+      .then(body => {
+        if (body === null){
+          // TODO
+        } else {
+          const {jwt_token} = body;
+          auth.onAuthenticated(jwt_token);
+          history.push('/');
+        }
+      })
+      .catch(err =>{
+        console.error(err);
+      })
   }
 
   return (<div className="row">
@@ -25,13 +38,13 @@ function Login() {
       <div className="row">
         <div className="input-field col s12">
           <input id="username" type="text" name="username" value={credentials.username} onChange={onChange} />
-          <label htmlFor="username">Description</label>
+          <label htmlFor="username" className="active">Description</label>
         </div>
       </div>
       <div className="row">
         <div className="input-field col s12">
           <input id="password" type="password" name="password" value={credentials.password} onChange={onChange} />
-          <label htmlFor="password">Password</label>
+          <label htmlFor="password" className="active">Password</label>
         </div>
       </div>
       <div className="row">

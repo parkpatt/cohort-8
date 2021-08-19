@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 const url = "http://localhost:8080/api/todos";
 
@@ -7,8 +7,22 @@ function ToDoList() {
 
   const [todos, setTodos] = useState([]);
 
+  const history = useHistory();
+
   const fetchAll = () => {
-    return fetch(url)
+
+    const token = localStorage.getItem('jwt_token');
+    if (!token){
+      history.push('/login');
+    }
+
+    const init = {
+      headers: {
+        "Authorization": `Bearer ${token}`
+      }
+    }
+
+    return fetch(url, init)
       .then(r => {
         if (r.status === 200) {
           return r.json();

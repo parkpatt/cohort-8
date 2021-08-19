@@ -14,10 +14,16 @@ function ToDoForm() {
 
   const history = useHistory();
   const { id } = useParams();
+  const token = localStorage.getItem('jwt_token');
+  const init = {
+    headers: {
+      "Authorization": `Bearer ${token}`
+    }
+  }
 
   useEffect(() => {
     if (id) {
-      fetch(`${url}/${id}`)
+      fetch(`${url}/${id}`, init)
         .then(r => {
           if (r.status === 200) {
             return r.json();
