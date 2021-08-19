@@ -26,7 +26,7 @@ public class ExampleController {
         if (appUser == null) {
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }
-        
+
         // Could check for AppUser roles here and conditionally reject
 
         return new ResponseEntity<>("Success", HttpStatus.OK);
