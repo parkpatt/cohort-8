@@ -1,29 +1,15 @@
 package learn.op.models;
 
-import learn.op.validations.MustHaveMinTwoAbilities;
-
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Pattern;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 public class Hero {
     private int id;
-
-    @NotBlank(message = "Alias is required")
     private String alias;
-
-    @NotBlank(message = "Full name is required")
     private String fullName;
-
-    @NotBlank(message = "Faction is required")
     private String faction;
-
-    @Pattern(regexp = "https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()!@:%_\\+.~#?&\\/\\/=]*)",
-            message = "Image url must be a valid url")
     private String imgUrl;
-
     private List<Ability> abilities;
 
     public Hero() { }

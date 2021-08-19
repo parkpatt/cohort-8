@@ -1,14 +1,13 @@
-import { useState, useContext } from 'react';
+import { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import LoginContext from '../contexts/LoginContext';
-import { authenticate } from '../api/authApi';
+import { register } from '../api/authApi';
 import ErrorSummary from './ErrorSummary';
 
-function Login() {
+function Register() {
 
-  const [credentials, setCredentials] = useState({ username: '', password: '' });
+  const [credentials, setCredentials] = useState({ username: '', password: '', confirmPassword: '' });
   const [errors, setErrors] = useState([]);
-  const auth = useContext(LoginContext);
+
   const history = useHistory();
 
   const onChange = (evt) => {
@@ -20,17 +19,18 @@ function Login() {
   const onSubmit = (evt) => {
     evt.preventDefault();
 
-    authenticate(credentials)
-      .then(body => {
-        if (body === null) {
-          setErrors(["Username/password are not correct."])
-        } else {
-          const { jwt_token } = body;
-          auth.onAuthenticated(jwt_token);
-          history.push("/");
-        }
+    if (credentials.password !== credentials.confirmPassword) {
+      setErrors(["Passwords do not match."]);
+      return;
+    }
+
+    register(credentials)
+      .then(() => {
+        history.push("/login");
       })
-      .catch(console.error);
+      .catch(errors => {
+        setErrors(errors.messages);
+      });
   };
 
   return <form onSubmit={onSubmit}>      
@@ -45,6 +45,11 @@ function Login() {
           required value={credentials.password} onChange={onChange} />
     </div>
     <div className="mb-3">
+      <label className="form-label" htmlFor="password">Confirm Password</label>
+      <input type="password" className="form-control" id="confirmPassword" name="confirmPassword" 
+          required value={credentials.confirmPassword} onChange={onChange} />
+    </div>
+    <div className="mb-3">
       <button type="submit" className="btn btn-primary me-1">Submit</button>
       <Link to="/" className="btn btn-secondary mx-1">Cancel</Link>
     </div>
@@ -52,4 +57,4 @@ function Login() {
   </form>
 }
 
-export default Login;
+export default Register;

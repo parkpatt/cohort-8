@@ -13,8 +13,7 @@ function NavBar() {
         <li className="nav-item active">
           {auth.user 
               ? <div>
-                  Hello, {auth.user}
-                  <button className="btn btn-light" onClick={() => auth.logout()}>Log out</button>
+                  Hello {auth.user.username}
                 </div> 
               : <Link to="/login">Login</Link>}
         </li>

@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link, useParams, useHistory } from 'react-router-dom';
 import { fetchHero, saveHero } from '../api/heroApi';
-import { fetchAll as fetchAbilities } from '../api/abilityApi';
 
 const DEFAULT_HERO = { 
   id: 0, 
@@ -20,9 +19,19 @@ function HeroForm() {
   const history = useHistory();
 
   useEffect(() => {
-    fetchAbilities()
-      .then(json => setAbilities(json))
-      .catch(console.error);
+    const fetchAbilities = async () => {
+      try {
+        const response = await fetch("http://localhost:8080/api/ability");
+        if (response.status !== 200) {
+          return Promise.reject(new Error("Fetch abilities failed."));
+        }
+        const json = await response.json();
+        setAbilities(json);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchAbilities();
   }, []);
 
   useEffect(() => {
@@ -50,12 +59,14 @@ function HeroForm() {
     setHero(nextHero);
   };
 
-  const onSubmit = (evt) => {
+  const onSubmit = async (evt) => {
     evt.preventDefault();
 
     saveHero(hero)
       .then(() => history.push("/"))
-      .catch(console.error);
+      .catch(err => {
+        console.log(err);
+      });
   };
 
   return <div className="container">
