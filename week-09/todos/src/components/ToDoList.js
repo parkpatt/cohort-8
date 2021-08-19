@@ -1,13 +1,18 @@
 import { useState, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
+<<<<<<< HEAD
 
 const url = "http://localhost:8080/api/todos";
+=======
+import { findAll, deleteById } from '../services/todos';
+>>>>>>> 6806cda2ce7ae8e8cd48f2da913a5245a34bbbe2
 
 function ToDoList() {
 
   const [todos, setTodos] = useState([]);
 
   const history = useHistory();
+<<<<<<< HEAD
 
   const fetchAll = () => {
 
@@ -31,20 +36,20 @@ function ToDoList() {
       })
       .then(setTodos)
   };
+=======
+>>>>>>> 6806cda2ce7ae8e8cd48f2da913a5245a34bbbe2
 
   useEffect(() => {
-    fetchAll()
-      .catch(console.error)
-  }, []);
+    findAll()
+      .then(setTodos)
+      .catch(console.error);
+  }, [history]);
 
   const deleteToDo = (evt) => {
-    const theTodo = todos.find(t => t.id === parseInt(evt.target.value), 10);
-    fetch(`${url}/${theTodo.id}`, { method: "DELETE" })
-      .then(r => {
-        if (r.status === 204) {
-          return fetchAll();
-        }
-        return Promise.reject("Not 204 No Content");
+    deleteById(parseInt(evt.target.value, 10))
+      .then(() => {
+        findAll()
+          .then(setTodos);
       })
       .catch(console.error);
   }
@@ -61,7 +66,7 @@ function ToDoList() {
           <td>{t.description}</td>
           <td>
             <button className="red darken-2 btn" value={t.id} onClick={deleteToDo}>
-              <i className="material-icons">delete_forever</i>
+              <i className="material-icons" value={t.id}>delete_forever</i>
             </button>
           </td>
           <td>

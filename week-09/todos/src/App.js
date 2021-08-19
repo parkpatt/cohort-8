@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import { useEffect, useState } from 'react';
+=======
+import { useState, useEffect } from 'react';
+>>>>>>> 6806cda2ce7ae8e8cd48f2da913a5245a34bbbe2
 import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
 import About from './components/About';
 import Login from './components/Login';
@@ -11,6 +15,7 @@ import jwtDecode from 'jwt-decode';
 function App() {
 
   const [user, setUser] = useState(null);
+  const [initialized, setInitialized] = useState(false);
 
   const onAuthenticated = (token) => {
     const payload = jwtDecode(token);
@@ -23,8 +28,13 @@ function App() {
     if (token) {
       onAuthenticated(token);
     }
+<<<<<<< HEAD
   }, [onAuthenticated])
 
+=======
+    setInitialized(true);
+  }, [])
+>>>>>>> 6806cda2ce7ae8e8cd48f2da913a5245a34bbbe2
 
   const logout = () => {
     setUser(null);
@@ -35,6 +45,10 @@ function App() {
     user,
     onAuthenticated,
     logout
+  }
+
+  if (!initialized) {
+    return null;
   }
 
   return (

@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link, useParams, useHistory } from 'react-router-dom';
+import { fetchHero, saveHero } from '../api/heroApi';
+import { fetchAll as fetchAbilities } from '../api/abilityApi';
 
 const DEFAULT_HERO = { 
   id: 0, 
@@ -17,23 +19,20 @@ function HeroForm() {
   const history = useHistory();
   const heroUrl = "http://localhost:8080/api/ability";
 
+  const { heroId } = useParams();
+  const history = useHistory();
 
   useEffect(() => {
-    const fetchHero = async () => {
-      try {
-        const response = await fetch(`http://localhost:8080/api/hero/${heroId}`);
-        if (response.status !== 200) {
-          return Promise.reject(new Error(`Fetch hero failed, heroId: ${heroId}.`));
-        }
-        const json = await response.json();
-        setHero(json);
-        console.log(json);
-      } catch (error) {
-        console.log(error);
-      }
-    };
+    fetchAbilities()
+      .then(json => setAbilities(json))
+      .catch(console.error);
+  }, []);
+
+  useEffect(() => {
     if (heroId !== undefined) {
-      fetchHero();
+      fetchHero(heroId)
+        .then(json => setHero(json))
+        .catch(console.error);
     }
   }, [heroId]);
 
@@ -96,6 +95,14 @@ function HeroForm() {
     setHero(nextHero);
   };
 
+  const onSubmit = (evt) => {
+    evt.preventDefault();
+
+    saveHero(hero)
+      .then(() => history.push("/"))
+      .catch(console.error);
+  };
+
   return <div className="container">
     <div className="row align-items-center">
       <h2 className="col">{heroId === 0 ? "Add a Hero" : `Edit ${hero.alias}`}</h2>
@@ -125,8 +132,7 @@ function HeroForm() {
       </div>
       <div className="mb-3">
         <button type="submit" className="btn btn-primary me-1">Save</button>
-        <Link to='/' className="btn btn-secondary mx-1">Cancel</Link>
-        {/* <button type="button" className="btn btn-secondary mx-1" onClick={cancel}>Cancel</button> */}
+        <Link to="/" className="btn btn-secondary mx-1">Cancel</Link>
       </div>
     </form>
   </div>

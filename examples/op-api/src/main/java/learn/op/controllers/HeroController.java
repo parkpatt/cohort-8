@@ -1,11 +1,15 @@
 package learn.op.controllers;
 
 import learn.op.models.Hero;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @CrossOrigin(origins = {"http://localhost:3000"})
@@ -32,7 +36,15 @@ public class HeroController {
     }
 
     @PostMapping
-    public ResponseEntity<Hero> create(@RequestBody Hero hero) {
+    public ResponseEntity<Object> create(@RequestBody @Valid Hero hero,
+                                        BindingResult result) {
+        if (result.hasErrors()) {
+            List<String> messages = result.getAllErrors().stream()
+                    .map(err -> err.getDefaultMessage())
+                    .collect(Collectors.toList());
+            return new ResponseEntity<>(messages, HttpStatus.BAD_REQUEST);
+        }
+
         int nextId = heroes.stream()
                 .mapToInt(h -> h.getId())
                 .max()

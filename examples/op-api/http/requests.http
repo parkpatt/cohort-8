@@ -13,6 +13,17 @@ Content-Type: application/json
 Accept: application/json
 
 {
+
+}
+
+###
+
+POST {{url}} HTTP/1.1
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJkZXYxMC11c2Vycy1hcGkiLCJzdWIiOiJzbWFzaGRldiIsImlkIjoiNWUxNDk0MmEtODVhMC00ZTg3LTlkYzYtN2E2MDRiYTUyMWZlIiwicm9sZXMiOiJVU0VSIiwiZXhwIjoxNjI5NDc5ODE3fQ.f12Kfyp36y3sAFB-oZTcjMcqPlLwo0iAijq83bWenJQ
+
+{
   "id": 1,
   "alias": "Walter",
   "fullName": "Walter",
@@ -26,6 +37,7 @@ Accept: application/json
 PUT {{url}}/5 HTTP/1.1
 Content-Type: application/json
 Accept: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJkZXYxMC11c2Vycy1hcGkiLCJzdWIiOiJzbWFzaGRldiIsImlkIjoiNWUxNDk0MmEtODVhMC00ZTg3LTlkYzYtN2E2MDRiYTUyMWZlIiwicm9sZXMiOiJVU0VSIiwiZXhwIjoxNjI5NDc5ODE3fQ.f12Kfyp36y3sAFB-oZTcjMcqPlLwo0iAijq83bWenJQ
 
 {
   "id": 5,

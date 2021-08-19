@@ -2,12 +2,12 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import HeroRow from './HeroRow';
 import HeroCard from './HeroCard';
-
-const url = "http://localhost:8080/api/hero";
+import { fetchAll } from '../api/heroApi';
 
 function ViewHeroes() {
 
   const [heroes, setHeroes] = useState([]);
+<<<<<<< HEAD
 
   const fetchAll = async () => {
     try {
@@ -21,9 +21,13 @@ function ViewHeroes() {
       console.log(error);
     }
   };
+=======
+>>>>>>> 6806cda2ce7ae8e8cd48f2da913a5245a34bbbe2
 
   useEffect(() => {
-    fetchAll();
+    fetchAll()
+      .then(setHeroes)
+      .catch(console.error);
   }, []);
 
   return (<>
@@ -31,8 +35,12 @@ function ViewHeroes() {
       <div className="row align-items-center">
         <h2 className="col">Heroes</h2>
         <div className="col  align-self-end">
+<<<<<<< HEAD
           <Link to='/add' className="btn btn-primary">Add</Link>
           {/* <button type="button" className="btn btn-primary" onClick={onAdd}>Add</button> */}
+=======
+          <Link to="/add" className="btn btn-primary">Add</Link>
+>>>>>>> 6806cda2ce7ae8e8cd48f2da913a5245a34bbbe2
         </div>
       </div>
       {heroes.map(h => <HeroRow key={h.id} hero={h} />)}

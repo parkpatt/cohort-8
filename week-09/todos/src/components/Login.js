@@ -20,6 +20,7 @@ function Login() {
 
     authenticate(credentials)
       .then(body => {
+<<<<<<< HEAD
         if (body === null){
           // TODO
         } else {
@@ -29,6 +30,17 @@ function Login() {
         }
       })
       .catch(err =>{
+=======
+        if (body === null) {
+          // TODO: tell the user something
+        } else {
+          const { jwt_token } = body;
+          auth.onAuthenticated(jwt_token);
+          history.push("/");
+        }
+      })
+      .catch(err => {
+>>>>>>> 6806cda2ce7ae8e8cd48f2da913a5245a34bbbe2
         console.error(err);
       })
   }
