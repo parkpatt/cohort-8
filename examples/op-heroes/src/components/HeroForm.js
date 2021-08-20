@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link, useParams, useHistory } from 'react-router-dom';
 import { fetchHero, saveHero } from '../api/heroApi';
 import { fetchAll as fetchAbilities } from '../api/abilityApi';
+import ErrorSummary from './ErrorSummary';
 
 const DEFAULT_HERO = { 
   id: 0, 
@@ -15,9 +16,7 @@ function HeroForm() {
 
   const [hero, setHero] = useState(DEFAULT_HERO);
   const [abilities, setAbilities] = useState([]);
-  const { heroId } = useParams();
-  const history = useHistory();
-  const heroUrl = "http://localhost:8080/api/ability";
+  const [errors, setErrors] = useState([]);
 
   const { heroId } = useParams();
   const history = useHistory();
@@ -100,7 +99,9 @@ function HeroForm() {
 
     saveHero(hero)
       .then(() => history.push("/"))
-      .catch(console.error);
+      .catch(err => {
+        setErrors(err);
+      });
   };
 
   return <div className="container">
@@ -135,6 +136,7 @@ function HeroForm() {
         <Link to="/" className="btn btn-secondary mx-1">Cancel</Link>
       </div>
     </form>
+    <ErrorSummary errors={errors} />
   </div>
 }
 
